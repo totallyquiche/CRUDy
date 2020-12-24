@@ -21,6 +21,18 @@ class Router
      */
     public function register(string $route, Callable $callable) : void
     {
-        $routes[$route] = $callable;
+        $this->routes[$route] = $callable;
+    }
+
+    /**
+     * Given a route, invoke the registered callable.
+     *
+     * @param string $route
+     *
+     * @return void;
+     */
+    public function callRouteCallable(string $route) : void
+    {
+        $this->routes[$route]();
     }
 }
