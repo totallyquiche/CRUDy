@@ -4,7 +4,23 @@ namespace App;
 
 class Router
 {
-    public function __construct() {
-        echo 'Hello, World!';
+    /**
+     * Route registrar.
+     *
+     * @var array
+     */
+    private array $routes = [];
+
+    /**
+     * Register a route.
+     *
+     * @param string   $route
+     * @param Callable $callable
+     *
+     * @return void
+     */
+    public function register(string $route, Callable $callable) : void
+    {
+        $routes[$route] = $callable;
     }
 }
