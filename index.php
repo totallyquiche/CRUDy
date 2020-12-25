@@ -6,8 +6,6 @@ use App\Router;
 
 $router = new Router;
 
-$router->register('/', function () {
-    echo 'Hello, World!';
-});
+$router->register('/', 'HomeController::home');
 
-$router->callRouteCallable($_SERVER['REQUEST_URI']);
+echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
