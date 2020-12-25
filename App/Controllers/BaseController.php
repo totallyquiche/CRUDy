@@ -12,7 +12,7 @@ abstract class BaseController
      *
      * @return string
      */
-    protected function loadView(string $view_name, array $args) : string
+    protected function loadView(string $view_name, array $args = []) : string
     {
 
         foreach ($args as $key => $value) {
