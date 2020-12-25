@@ -5,12 +5,12 @@ namespace App\Controllers;
 class HomeController extends BaseController
 {
     /**
-     * Returns the contents of the specified view.
+     * Display the home page.
      *
      * @return string
      */
     public function home() : string
     {
-        return $this->loadView('home');
+        return 'Hello, world!';
     }
 }
