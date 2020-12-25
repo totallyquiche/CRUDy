@@ -7,5 +7,6 @@ use App\Router;
 $router = new Router;
 
 $router->register('/', 'HomeController::home');
+$router->register('/thingamabob', 'ThingamabobController::index');
 
 echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
