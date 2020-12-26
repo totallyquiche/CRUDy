@@ -14,18 +14,17 @@ class Router
     /**
      * Register a route.
      *
-     * $route is the route key and $controller_method is the value in the format
-     * ControllerName::methodName. This determines which controller method should
-     * handle the route.
+     * $route is the route key and $method is either a string in the format
+     * ControllerName::methodName or a Callable.
      *
-     * @param string $route
-     * @param string $controller_method
+     * @param string          $route
+     * @param string|callable $method
      *
      * @return void
      */
-    public function register(string $route, string $controller_method) : void
+    public function register(string $route, $method) : void
     {
-        $this->routes[$route] = $controller_method;
+        $this->routes[$route] = $method;
     }
 
     /**
@@ -37,11 +36,17 @@ class Router
      */
     public function callRouteMethod(string $route) : string
     {
-        list($controller, $method) = explode('::', $this->routes[$route]);
+        $method = $this->routes[$route];
 
-        $class = 'App\\Controllers\\' . $controller;
+        if (is_callable($method)) {
+            return $method();
+        } else {
+            list($controller, $method) = explode('::', $this->routes[$route]);
 
-        return (new $class)->$method();
+            $class = 'App\\Controllers\\' . $controller;
+
+            return (new $class)->$method();
+        }
     }
 
     /**
