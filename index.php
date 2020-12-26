@@ -1,11 +1,8 @@
 <?php declare(strict_types=1);
 
-require_once(__DIR__ . '/vendor/autoload.php');
-
-use App\Config;
 use App\Router;
 
-Config::load('.env');
+require_once(__DIR__ . '/bootstrap.php');
 
 (function () {
     $router = new Router;
