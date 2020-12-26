@@ -53,4 +53,16 @@ class Router
     {
         return $this->routes;
     }
+
+    /**
+     * Setter for $routes.
+     *
+     * @param array $routes
+     *
+     * @return void
+     */
+    public function setRoutes(array $routes) : void
+    {
+        $this->routes = $routes;
+    }
 }

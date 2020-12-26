@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Router;
+use \ReflectionObject;
 
 class RouterTest implements TesterInterface
 {
@@ -59,6 +60,54 @@ class RouterTest implements TesterInterface
     }
 
     /**
+     * Tests that getRoutes returns the $routes array.
+     *
+     * @param Router $router
+     *
+     * @return bool
+     */
+    public function test_getRoutes_returns_routes_array(Router $router) : bool
+    {
+        $expected_routes = [
+            '/some/route/to/somewhere' => 'SomeController::method',
+            '/another/route/going/places' => 'AnotherController::places',
+            '/final/destination' => 'FinalDestinationController:arrive',
+            '/' => 'HomeController::home'
+        ];
+
+        // Use Reflection to set private property without using other methods
+        $reflection_property = (new ReflectionObject($router))->getProperty('routes');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($router, $expected_routes);
+        $reflection_property->setAccessible(false);
+
+        $routes = $router->getRoutes();
+
+        return $expected_routes === $routes;
+    }
+
+    /**
+     * Tests that setRoutes sets the routes correctly.
+     *
+     * @param Router $router
+     *
+     * @return bool
+     */
+    public function test_setRoutes_sets_routes_correctly(Router $router) : bool
+    {
+        $expected_routes = [
+            '/some/route/to/somewhere' => 'SomeController::method',
+            '/another/route/going/places' => 'AnotherController::places',
+            '/final/destination' => 'FinalDestinationController:arrive',
+            '/' => 'HomeController::home'
+        ];
+
+        $router->setRoutes($expected_routes);
+
+        return $router->getRoutes() === $expected_routes;
+    }
+
+    /**
      * Run the tests.
      *
      * @return bool
@@ -67,7 +116,9 @@ class RouterTest implements TesterInterface
     {
         return
             $this->test_register_adds_route_and_controller_method_to_routes(new Router) &&
-            $this->test_callRouteMethod_calls_correct_controller_method(new Router);
+            $this->test_callRouteMethod_calls_correct_controller_method(new Router) &&
+            $this->test_getRoutes_returns_routes_array(new Router) &&
+            $this->test_setRoutes_sets_routes_correctly(new Router);
 
     }
 }
