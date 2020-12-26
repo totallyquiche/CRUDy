@@ -11,7 +11,10 @@ require_once(__DIR__ . '/bootstrap.php');
         echo 'Hello, World!';
     });
 
-    $router->register('/thingamabob', 'ThingamabobController::index');
+    $router->register(
+        '/thingamabob',
+        'ThingamabobController::index'
+    );
 
     echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
 })();
