@@ -93,7 +93,7 @@ class DatabaseAdapter
 
         $statement = $this->pdo->query($query);
 
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAll()) {
             $results[] = $row;
         }
 
