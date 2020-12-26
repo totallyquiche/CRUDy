@@ -24,7 +24,7 @@ class Config
             foreach ($config_option_strings as $config_option_string) {
                 list($key, $value) = explode('=', $config_option_string);
 
-                self::$config_options[$key] = $value;
+                self::$config_options[trim($key)] = trim($value);
             }
         }
     }
