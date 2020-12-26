@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Thingamabob;
-use App\DatabaseAdapter;
+use App\Database\PdoAdapter;
 
 class ThingamabobController extends BaseController
 {
@@ -17,7 +17,7 @@ class ThingamabobController extends BaseController
         return $this->loadView(
             'Thingamabob/index',
             [
-                'thingamabobs' => (new Thingamabob(new DatabaseAdapter))->all()
+                'thingamabobs' => (new Thingamabob(new PdoAdapter))->all()
             ]
         );
     }

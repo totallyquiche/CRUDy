@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\DatabaseAdapter;
+use App\Database\DatabaseAdapterInterface;
 
 abstract class BaseModel
 {
@@ -16,20 +16,20 @@ abstract class BaseModel
     /**
      * Database connection.
      *
-     * @param DatabaseAdapter|null
+     * @param DatabaseAdapterInterface|null
      */
-    private DatabaseAdapter $database_adapter;
+    private DatabaseAdapterInterface $database_adapter_interface;
 
     /**
      * Instantiate the model with a database adapter.
      *
-     * @param DatabaseAdapter $database_adapter
+     * @param DatabaseAdapterInterface $database_adapter_interface
      *
      * @return void
      */
-    public function __construct(DatabaseAdapter $database_adapter)
+    public function __construct(DatabaseAdapterInterface $database_adapter_interface)
     {
-        $this->database_adapter = $database_adapter;
+        $this->database_adapter_interface = $database_adapter_interface;
     }
 
     /**
@@ -39,6 +39,6 @@ abstract class BaseModel
      */
     public function all() : array
     {
-        return $this->database_adapter->query("SELECT * FROM `$this->table_name`;");
+        return $this->database_adapter_interface->query("SELECT * FROM `$this->table_name`;");
     }
 }

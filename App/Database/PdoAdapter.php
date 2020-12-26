@@ -1,18 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace App;
+namespace App\Database;
 
+use App\Config;
 use \PDO;
 use \PDOException;
 
-class DatabaseAdapter
+class PdoAdapter implements DatabaseAdapterInterface
 {
     /**
      * Instance of this class.
      *
-     * @var DatabaseAdapter|null
+     * @var PdoAdapter|null
      */
-    private static ?DatabaseAdapter $self = null;
+    private static ?PdoAdapter $self = null;
 
     /**
      * Instance of the PDO connection.
@@ -69,9 +70,9 @@ class DatabaseAdapter
     /**
      * Singleton to ensure we always use the same instance of this class.
      *
-     * @return DatabaseAdapter
+     * @return DatabaseAdapterInterface
      */
-    public static function getInstance() : DatabaseAdapter
+    public static function getInstance() : DatabaseAdapterInterface
     {
         if (is_null(self::$self)) {
             self::$self = new self();
