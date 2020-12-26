@@ -18,7 +18,7 @@ class Config
      *
      * @return void
      */
-    public static function load(string $config_file_path)
+    public static function load(string $config_file_path) : void
     {
         if ($config_option_strings= file($config_file_path)) {
             foreach ($config_option_strings as $config_option_string) {
