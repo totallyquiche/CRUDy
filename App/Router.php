@@ -40,12 +40,14 @@ class Router
 
         if (is_callable($method)) {
             return $method();
-        } else {
+        } elseif (isset($this->routes[$route])) {
             list($controller, $method) = explode('::', $this->routes[$route]);
 
             $class = 'App\\Controllers\\' . $controller;
 
             return (new $class)->$method();
+        } else {
+            return '';
         }
     }
 
