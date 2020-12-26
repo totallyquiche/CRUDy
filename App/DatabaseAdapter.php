@@ -89,14 +89,6 @@ class DatabaseAdapter
      */
     public function query(string $query) : array
     {
-        $results = [];
-
-        $statement = $this->pdo->query($query);
-
-        while ($row = $statement->fetchAll()) {
-            $results[] = $row;
-        }
-
-        return $results;
+        return $this->pdo->query($query)->fetchAll();
     }
 }
