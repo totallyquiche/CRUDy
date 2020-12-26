@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Crudy</title>
+        <title>CRUDy</title>
     </head>
     <body>
         <ul>
