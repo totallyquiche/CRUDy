@@ -43,4 +43,14 @@ class Router
 
         return (new $class)->$method();
     }
+
+    /**
+     * Getter for $routes.
+     *
+     * @return array
+     */
+    public function getRoutes() : array
+    {
+        return $this->routes;
+    }
 }
