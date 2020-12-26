@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Thingamabob;
+use App\DatabaseAdapter;
+
 class ThingamabobController extends BaseController
 {
     /**
@@ -11,14 +14,11 @@ class ThingamabobController extends BaseController
      */
     public function index() : string
     {
-        return $this->loadView('Thingamabob/index', [
-            'thingamabobs' => [
-                'Gizmo',
-                'Gadget',
-                'Whozit',
-                'Whatzit',
-                'Dinglehopper'
+        return $this->loadView(
+            'Thingamabob/index',
+            [
+                'thingamabobs' => (new Thingamabob(new DatabaseAdapter))->all()
             ]
-        ]);
+        );
     }
 }
