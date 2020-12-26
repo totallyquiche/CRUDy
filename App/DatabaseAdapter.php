@@ -89,6 +89,6 @@ class DatabaseAdapter
      */
     public function query(string $query) : array
     {
-        return $this->pdo->query($query)->fetchAll();
+        return $this->pdo->query($query)->fetch();
     }
 }
