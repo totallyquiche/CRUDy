@@ -7,8 +7,8 @@ abstract class BaseController
     /**
      * Returns the contents of the specified view.
      *
-     * @param string $view_name
-     * @param array  $args
+     * @param string     $view_name
+     * @param array|null $args
      *
      * @return string
      */
