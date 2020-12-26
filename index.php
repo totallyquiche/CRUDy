@@ -8,7 +8,7 @@ use App\Router;
     $router = new Router;
 
     $router->register('/', function () {
-        echo 'Hello, World!';
+        return 'Hello, World!';
     });
 
     $router->register(
