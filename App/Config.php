@@ -4,5 +4,40 @@ namespace App;
 
 class Config
 {
-    //
+    /**
+     * An array of config options/values for the application.
+     *
+     * @var array
+     */
+    private static array $config_options = [];
+
+    /**
+     * Load config options/values from the specified path.
+     *
+     * @param string $config_file_path
+     *
+     * @return void
+     */
+    public static function load(string $config_file_path)
+    {
+        if ($config_option_strings= file($config_file_path)) {
+            foreach ($config_option_strings as $config_option_string) {
+                list($key, $value) = explode('=', $config_option_string);
+
+                self::$config_options[$key] = $value;
+            }
+        }
+    }
+
+    /**
+     * Return a config option value.
+     *
+     * @param string $config_name
+     *
+     * @return string|null
+     */
+    public static function get(string $config_name) : ?string
+    {
+        return self::$config_options[$config_name] ?? null;
+    }
 }
