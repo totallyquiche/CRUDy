@@ -7,9 +7,11 @@ use App\Router;
 
 Config::load('.env');
 
-$router = new Router;
+(function () {
+    $router = new Router;
 
-$router->register('/', 'HomeController::home');
-$router->register('/thingamabob', 'ThingamabobController::index');
+    $router->register('/', 'HomeController::home');
+    $router->register('/thingamabob', 'ThingamabobController::index');
 
-echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
+    echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
+})();
