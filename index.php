@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-use App\Router;
-
 require_once(__DIR__ . '/bootstrap.php');
+
+use App\Router;
 
 (function () {
     $router = new Router;
