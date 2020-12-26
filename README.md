@@ -10,3 +10,4 @@ Features:
 - Custom environment variables (.env)
 - Database abstraction
 - PSR-4 autoloading
+- Tests
