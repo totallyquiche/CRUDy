@@ -46,7 +46,7 @@ class DatabaseAdapter
      *
      * @return PDO
      */
-    private function setPdo() : PDO
+    private function setPdo(string $db_host, string $db_name, string $db_user, string $db_password) : PDO
     {
         $dsn = "mysql:host=$db_host;dbname=$db_name;charset=utf8mb4";
 
@@ -78,5 +78,25 @@ class DatabaseAdapter
         }
 
         return self::$self;
+    }
+
+    /**
+     * Wrapper for PDO::query().
+     *
+     * @param string $query
+     *
+     * @return array
+     */
+    public function query(string $query) : array
+    {
+        $results = [];
+
+        $statement = $this->pdo->query($query);
+
+        while ($row = $statement->fetch()) {
+            $results[] = $row;
+        }
+
+        return $results;
     }
 }
