@@ -5,18 +5,17 @@ namespace App\Tests;
 use App\Router;
 use \ReflectionObject;
 
-class RouterTest implements TesterInterface
+class RouterTest extends BaseTest
 {
     /**
      * Test that the register function adds a route and it's controller method to
      * the routes array.
      *
-     * @param Router $router
-     *
      * @return bool
      */
-    public function test_register_adds_route_and_controller_method_to_routes(Router $router) : bool
+    public function test_register_adds_route_and_controller_method_to_routes() : bool
     {
+        $router = new Router;
         $route = '/path/to/somewhere';
         $controller_method = 'SomeController::action';
 
@@ -29,13 +28,12 @@ class RouterTest implements TesterInterface
      * Test that the callRouteMethod function correctly parses the route controller
      * method and calls it.
      *
-     * @param Router $router
-     *
      * @return bool
      */
-    public function test_callRouteMethod_calls_correct_controller_method(Router $router) : bool
+    public function test_callRouteMethod_calls_correct_controller_method() : bool
     {
-        $controller_class_name = 'SomeController';
+        $router = new Router;
+        $controller_class_name = 'SomeController_' . str_replace('.', '_', microtime(true));
         $random_number = (string) mt_rand();
 
         $controller_class_definition = <<<CLASS
@@ -62,12 +60,12 @@ class RouterTest implements TesterInterface
     /**
      * Tests that getRoutes returns the $routes array.
      *
-     * @param Router $router
-     *
      * @return bool
      */
-    public function test_getRoutes_returns_routes_array(Router $router) : bool
+    public function test_getRoutes_returns_routes_array() : bool
     {
+        $router = new Router;
+
         $expected_routes = [
             '/some/route/to/somewhere' => 'SomeController::method',
             '/another/route/going/places' => 'AnotherController::places',
@@ -89,12 +87,12 @@ class RouterTest implements TesterInterface
     /**
      * Tests that setRoutes sets the routes correctly.
      *
-     * @param Router $router
-     *
      * @return bool
      */
-    public function test_setRoutes_sets_routes_correctly(Router $router) : bool
+    public function test_setRoutes_sets_routes_correctly() : bool
     {
+        $router = new Router;
+
         $expected_routes = [
             '/some/route/to/somewhere' => 'SomeController::method',
             '/another/route/going/places' => 'AnotherController::places',
@@ -105,20 +103,5 @@ class RouterTest implements TesterInterface
         $router->setRoutes($expected_routes);
 
         return $router->getRoutes() === $expected_routes;
-    }
-
-    /**
-     * Run the tests.
-     *
-     * @return bool
-     */
-    public function run() : bool
-    {
-        return
-            $this->test_register_adds_route_and_controller_method_to_routes(new Router) &&
-            $this->test_callRouteMethod_calls_correct_controller_method(new Router) &&
-            $this->test_getRoutes_returns_routes_array(new Router) &&
-            $this->test_setRoutes_sets_routes_correctly(new Router);
-
     }
 }
