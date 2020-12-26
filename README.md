@@ -5,9 +5,9 @@ in any dependencies.
 
 Features:
 - Routing
-- Templating System
+- Templating
+- Testing
+- PSR-4 autoloading
 - MVC architecture
 - Custom environment variables (.env)
 - Database abstraction
-- PSR-4 autoloading
-- Tests
