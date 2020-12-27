@@ -13,13 +13,6 @@ use App\Tests\PerformsTeardownInterface;
 class BaseModelTest extends BaseTest implements PerformsSetupInterface, PerformsTeardownInterface
 {
     /**
-     * Name of the database used for these tests.
-     *
-     * @var string
-     */
-    private string $database_name;
-
-    /**
      * Name of the database table used for these tests.
      *
      * @var string
@@ -40,8 +33,7 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
      */
     public function setup() : void
     {
-        $this->database_name = self::class . '_' . str_replace('.', '_', microtime(true));
-        $this->table_name = 'base_model';
+        $this->table_name = 'base_model' . '_' . str_replace('.', '_', microtime(true));
 
         $this->database_adapter = new PdoAdapter(
             Config::get('TEST_DB_HOST'),
@@ -50,8 +42,7 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
             Config::get('TEST_DB_PASSWORD')
         );
 
-        $this->database_adapter->execute("CREATE DATABASE `$this->database_name`;");
-        $this->database_adapter->execute("USE `$this->database_name`; CREATE TABLE `$this->table_name`");
+        $this->database_adapter->execute("CREATE TABLE `$this->table_name`(`name` VARCHAR(10) NOT NULL)");
     }
 
     /**
@@ -61,7 +52,7 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
      */
     public function teardown() : void
     {
-        $this->database_adapter->execute("DROP DATABASE `$this->database_name`;");
+        $this->database_adapter->execute("DROP TABLE `$this->table_name`", false);
     }
 
     /**
@@ -92,9 +83,9 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
     {
         $mock = $this->getBaseModelMock($this->database_adapter);
 
-        var_dump($mock->exec("SELECT * FROM `$mock->table_name`;"));
+        $this->database_adapter->execute("INSERT INTO `$mock->table_name` VALUES('test')");
 
-        return true;
+        return $this->database_adapter->query("SELECT * FROM `$mock->table_name`") === $mock->all();
     }
 
     /**
@@ -122,5 +113,21 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
         $fully_qualified_class_name = 'App\\Models\\' . $class_name;
 
         return new $fully_qualified_class_name($database_adapter_interface);
+    }
+
+    /**
+     * Run the tests, performing setup and teardown steps.
+     *
+     * @return void
+     */
+    public function run() : string
+    {
+        $this->setup();
+
+        $results = parent::run();
+
+        $this->teardown();
+
+        return $results;
     }
 }

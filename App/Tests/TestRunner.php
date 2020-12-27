@@ -18,11 +18,7 @@ class TestRunner
             if (class_exists($test_class) && $test_class !== BaseTest::class) {
                 $test_class = new $test_class;
 
-                $test_class->setup();
-
                 echo $test_class->run();
-
-                $test_class->teardown();
             }
         }
     }
