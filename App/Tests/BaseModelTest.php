@@ -40,7 +40,8 @@ class BaseModelTest extends BaseTest
             Config::get('TEST_DB_PASSWORD')
         );
 
-        $this->database_adapter->execute("CREATE TABLE `$this->table_name`(`name` VARCHAR(10) NOT NULL)");
+        $this->createTable($this->database_adapter);
+        $this->seedTable($this->database_adapter);
     }
 
     /**
@@ -50,7 +51,7 @@ class BaseModelTest extends BaseTest
      */
     public function teardown() : void
     {
-        $this->database_adapter->execute("DROP TABLE `$this->table_name`", false);
+        $this->dropTable($this->database_adapter);
     }
 
     /**
@@ -81,8 +82,6 @@ class BaseModelTest extends BaseTest
     {
         $mock = $this->getBaseModelMock($this->database_adapter);
 
-        $this->database_adapter->execute("INSERT INTO `$mock->table_name` VALUES('test')");
-
         return $this->database_adapter->query("SELECT * FROM `$mock->table_name`") === $mock->all();
     }
 
@@ -111,6 +110,51 @@ class BaseModelTest extends BaseTest
         $fully_qualified_class_name = 'App\\Models\\' . $class_name;
 
         return new $fully_qualified_class_name($database_adapter_interface);
+    }
+
+    /**
+     * Drop the database table.
+     *
+     * @pararm DatabaseAdapterInterface $database_adapter
+     *
+     * @return void
+     */
+    private function dropTable(DatabaseAdapterInterface $database_adapter) : void
+    {
+        $this->database_adapter->execute(
+            "DROP TABLE `$this->table_name`",
+            false
+        );
+    }
+
+    /**
+     * Create the database table.
+     *
+     * @param DatabaseAdapterInterface $database_adapter
+     *
+     * @return void
+     */
+    private function createTable(DatabaseAdapterInterface $database_adapter) : void
+    {
+        $this->database_adapter->execute(
+            "CREATE TABLE `$this->table_name`(`name` VARCHAR(10) NOT NULL)"
+        );
+    }
+
+    /**
+     * Seed the database table.
+     *
+     * @param DatabaseAdapterInterface $database_adapter
+     *
+     * @return void
+     */
+    private function seedTable(DatabaseAdapterInterface $database_adapter) : void
+    {
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test1')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test2')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test3')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test4')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test5')");
     }
 
     /**
