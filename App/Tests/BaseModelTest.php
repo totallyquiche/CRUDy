@@ -7,10 +7,8 @@ use App\Database\DatabaseAdapterInterface;
 use App\Database\PdoAdapter;
 use \ReflectionObject;
 use App\Config;
-use App\Tests\PerformsSetupInterface;
-use App\Tests\PerformsTeardownInterface;
 
-class BaseModelTest extends BaseTest implements PerformsSetupInterface, PerformsTeardownInterface
+class BaseModelTest extends BaseTest
 {
     /**
      * Name of the database table used for these tests.
