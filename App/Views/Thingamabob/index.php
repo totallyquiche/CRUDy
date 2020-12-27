@@ -7,7 +7,7 @@
     <body>
         <ul>
             <?php foreach ($thingamabobs as $thingamabob): ?>
-                <li><?= htmlspecialchars($thingamabob); ?></li>
+                <li><?= htmlspecialchars($thingamabob['name']); ?></li>
             <?php endforeach; ?>
         </ul>
     </body>
