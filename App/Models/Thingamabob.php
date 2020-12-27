@@ -9,5 +9,5 @@ class Thingamabob extends BaseModel
      *
      * @var string
      */
-    protected string $table_name = 'thingamabob';
+    public string $table_name = 'thingamabob';
 }

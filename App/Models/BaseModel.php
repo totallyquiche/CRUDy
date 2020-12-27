@@ -11,7 +11,7 @@ abstract class BaseModel
      *
      * @var string
      */
-    protected string $table_name;
+    public string $table_name;
 
     /**
      * Database connection.

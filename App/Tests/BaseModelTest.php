@@ -92,6 +92,8 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
     {
         $mock = $this->getBaseModelMock($this->database_adapter);
 
+        var_dump($mock->exec("SELECT * FROM `$mock->table_name`;"));
+
         return true;
     }
 
@@ -111,7 +113,7 @@ class BaseModelTest extends BaseTest implements PerformsSetupInterface, Performs
 
             class {$class_name} extends BaseModel
             {
-                protected string \$table_name = '{$this->table_name}';
+                public string \$table_name = '{$this->table_name}';
             }
         CLASS;
 
