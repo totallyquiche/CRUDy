@@ -7,6 +7,7 @@ use App\Tests\BaseTest;
 class TestRunner
 {
     /**
+    /**
      * Run all tests.
      *
      * @return void
@@ -15,7 +16,13 @@ class TestRunner
     {
         foreach ($this->getTestClasses() as $test_class) {
             if (class_exists($test_class) && $test_class !== BaseTest::class) {
-                echo (new $test_class)->run();
+                $test_class = new $test_class;
+
+                $test_class->setup();
+
+                echo $test_class->run();
+
+                $test_class->teardown();
             }
         }
     }
