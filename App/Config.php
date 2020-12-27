@@ -22,10 +22,14 @@ class Config
     {
         if ($config_option_strings = file($config_file_path)) {
             foreach ($config_option_strings as $config_option_string) {
-                list($key, $value) = explode('=', $config_option_string);
+                $config_option_parts = explode('=', $config_option_string);
 
-                if (!is_null($key) && !is_null($value)) {
-                    self::$config_options[trim($key)] = trim($value);
+                if (count($config_option_parts) === 2) {
+                    list($key, $value) = $config_option_parts;
+
+                    if (!is_null($key) && !is_null($value)) {
+                        self::$config_options[trim($key)] = trim($value);
+                    }
                 }
             }
         }
