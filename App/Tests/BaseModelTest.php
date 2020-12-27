@@ -18,6 +18,13 @@ class BaseModelTest extends BaseTest
     private string $table_name;
 
     /**
+     * Name of the database table primary key used for these tests.
+     *
+     * @var string
+     */
+    private string $primary_key = 'id';
+
+    /**
      * Database connector for these tests.
      *
      * @var DatabaseAdapterInterface
@@ -153,7 +160,7 @@ class BaseModelTest extends BaseTest
     private function createTable(DatabaseAdapterInterface $database_adapter) : void
     {
         $this->database_adapter->execute(
-            "CREATE TABLE `$this->table_name`(`id` INT(11) AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(10) NOT NULL)"
+            "CREATE TABLE `$this->table_name`(`$this->primary_key` INT(11) AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(10) NOT NULL)"
         );
     }
 

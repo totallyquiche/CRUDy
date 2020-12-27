@@ -14,6 +14,13 @@ abstract class BaseModel
     public string $table_name;
 
     /**
+     * The primary key of the database table.
+     *
+     * @var string
+     */
+    public string $primary_key = 'id';
+
+    /**
      * Database connection.
      *
      * @param DatabaseAdapterInterface|null
@@ -40,5 +47,19 @@ abstract class BaseModel
     public function all() : array
     {
         return $this->database_adapter_interface->query("SELECT * FROM `$this->table_name`;");
+    }
+
+    /**
+     * Find a record in the database by ID and return it.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function find(int $id) : array
+    {
+        return $this->database_adapter_interface->query(
+            "SELECT * FROM `$this->table_name` WHERE `$this->primary_key` = $id"
+        );
     }
 }
