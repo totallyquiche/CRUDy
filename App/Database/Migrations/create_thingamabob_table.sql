@@ -1,1 +1,1 @@
-CREATE TABLE `thingamabob` (`name` VARCHAR(10) NOT NULL);
+CREATE TABLE `thingamabob` (`id` INT(11) AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(10) NOT NULL);
