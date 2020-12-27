@@ -27,5 +27,4 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 
 1. Clone the repo: `git clone git@github.com:totallyquiche/CRUDy.git`
 1. Create your config file: `cp .env.example .env`
-1. Setup autoloader: `composer install`
 1. Start your PHP server: `php -S localhost:80`
