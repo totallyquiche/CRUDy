@@ -25,15 +25,20 @@ class PdoAdapter implements DatabaseAdapterInterface
     /**
      * Instantiate the object, establishing a connection to the database.
      *
+     * @param string $db_host
+     * @param string $db_name
+     * @param string $db_user
+     * @param string $db_password
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $db_host, string $db_name, string $db_user, string $db_password)
     {
         $this->pdo = $this->setPdo(
-            Config::get('DB_HOST'),
-            Config::get('DB_NAME'),
-            Config::get('DB_USER'),
-            Config::get('DB_PASSWORD')
+            $db_host,
+            $db_name,
+            $db_user,
+            $db_password
         );
     }
 
@@ -75,7 +80,12 @@ class PdoAdapter implements DatabaseAdapterInterface
     public static function getInstance() : DatabaseAdapterInterface
     {
         if (is_null(self::$self)) {
-            self::$self = new self();
+            self::$self = new self(
+                Config::get('DB_HOST'),
+                Config::get('DB_NAME'),
+                Config::get('DB_USER'),
+                Config::get('DB_PASSWORD')
+            );
         }
 
         return self::$self;
