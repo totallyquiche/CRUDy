@@ -2,7 +2,9 @@
 
 CRUDy is a PHP framework for classic CRUD sites.
 
-Everything is built from scratch here -- you won't find any dependencies in that `composer.json`, just some autoloading config.
+There are no dependencies since everything is built from scratch -- you won't find a `composer.json` file here!
+
+Since CRUDy is focused on easy CRUD scaffolding, there's optional support for connecting to a MySQL database.
 
 ## But why?
 
