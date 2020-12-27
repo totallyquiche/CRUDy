@@ -59,7 +59,7 @@ class PdoAdapter implements DatabaseAdapterInterface
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_EMULATE_PREPARES   => false
         ];
 
         try {
@@ -75,16 +75,21 @@ class PdoAdapter implements DatabaseAdapterInterface
     /**
      * Singleton to ensure we always use the same instance of this class.
      *
+     * @param string $db_host
+     * @param string $db_name
+     * @param string $db_user
+     * @param string $db_password
+     *
      * @return DatabaseAdapterInterface
      */
-    public static function getInstance() : DatabaseAdapterInterface
+    public static function getInstance(?string $db_host = null, ?string $db_name = null, ?string $db_user = null, ?string $db_password = null) : DatabaseAdapterInterface
     {
         if (is_null(self::$self)) {
             self::$self = new self(
-                Config::get('DB_HOST'),
-                Config::get('DB_NAME'),
-                Config::get('DB_USER'),
-                Config::get('DB_PASSWORD')
+                $db_host ?? Config::get('DB_HOST'),
+                $db_name ?? Config::get('DB_NAME'),
+                $db_user ?? Config::get('DB_USER'),
+                $db_password ?? Config::get('DB_PASSWORD')
             );
         }
 
@@ -100,6 +105,26 @@ class PdoAdapter implements DatabaseAdapterInterface
      */
     public function query(string $query) : array
     {
-        return $this->pdo->query($query)->fetch();
+        $statement = $this->pdo->query($query);
+
+        $results = [];
+
+        while ($row = $statement->fetch()) {
+            $results[] = $row;
+        }
+
+        return $results;
+    }
+
+    /**
+     * Wrapper for PDO::execute().
+     *
+     * @param string $query
+     *
+     * @return void
+     */
+    public function execute(string $query) : void
+    {
+        $this->pdo->exec($query);
     }
 }
