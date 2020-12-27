@@ -20,11 +20,13 @@ class Config
      */
     public static function load(string $config_file_path) : void
     {
-        if ($config_option_strings= file($config_file_path)) {
+        if ($config_option_strings = file($config_file_path)) {
             foreach ($config_option_strings as $config_option_string) {
                 list($key, $value) = explode('=', $config_option_string);
 
-                self::$config_options[trim($key)] = trim($value);
+                if (!is_null($key) && !is_null($value)) {
+                    self::$config_options[trim($key)] = trim($value);
+                }
             }
         }
     }
