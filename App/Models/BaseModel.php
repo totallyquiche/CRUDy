@@ -18,7 +18,7 @@ abstract class BaseModel
      *
      * @param DatabaseAdapterInterface|null
      */
-    private DatabaseAdapterInterface $database_adapter_interface;
+    protected ?DatabaseAdapterInterface $database_adapter_interface;
 
     /**
      * Instantiate the model with a database adapter.
