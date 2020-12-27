@@ -86,6 +86,22 @@ class BaseModelTest extends BaseTest
     }
 
     /**
+     * Test find method returns the matching record form the database.
+     *
+     * @return bool
+     */
+    public function test_find_returns_expected_record() : bool
+    {
+        $mock = $this->getBaseModelMock($this->database_adapter);
+
+        $expected_results = $this->database_adapter->query(
+            "SELECT * FROM `$mock->table_name` WHERE `id` = 2"
+        );
+
+        return $expected_results === $mock->find(2);
+    }
+
+    /**
      * Get a mock of BaseModel.
      *
      * @param DatabaseAdapterInterface $database_adapter_interface
@@ -137,7 +153,7 @@ class BaseModelTest extends BaseTest
     private function createTable(DatabaseAdapterInterface $database_adapter) : void
     {
         $this->database_adapter->execute(
-            "CREATE TABLE `$this->table_name`(`name` VARCHAR(10) NOT NULL)"
+            "CREATE TABLE `$this->table_name`(`id` INT(11) AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(10) NOT NULL)"
         );
     }
 
@@ -150,11 +166,11 @@ class BaseModelTest extends BaseTest
      */
     private function seedTable(DatabaseAdapterInterface $database_adapter) : void
     {
-        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test1')");
-        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test2')");
-        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test3')");
-        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test4')");
-        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES('test5')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES(null, 'test1')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES(null, 'test2')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES(null, 'test3')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES(null, 'test4')");
+        $database_adapter->execute("INSERT INTO `$this->table_name` VALUES(null, 'test5')");
     }
 
     /**
