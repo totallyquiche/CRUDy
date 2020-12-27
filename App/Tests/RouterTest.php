@@ -67,10 +67,28 @@ class RouterTest extends BaseTest
         $router = new Router;
 
         $expected_routes = [
-            '/some/route/to/somewhere' => 'SomeController::method',
-            '/another/route/going/places' => 'AnotherController::places',
-            '/final/destination' => 'FinalDestinationController:arrive',
-            '/' => 'HomeController::home'
+            '/some/route/to/somewhere' => [
+                'method' => 'SomeController::method',
+                'arguments' => []
+            ],
+            '/another/route/going/places' => [
+                'method' => 'AnotherController::places',
+                'arguments' => []
+            ],
+            '/final/destination' => [
+                'method' => 'FinalDestinationController:arrive',
+                'arguments' => []
+            ],
+            '/' => [
+                'method' => 'HomeController::home',
+                'arguments' => []
+            ],
+            '/{placeholder}'=> [
+                'method' => 'HomeController::home',
+                'arguments' => [
+                    'placeholder'
+                ]
+            ]
         ];
 
         // Use Reflection to set private property without using other methods
@@ -85,19 +103,37 @@ class RouterTest extends BaseTest
     }
 
     /**
-     * Tests that setRoutes sets the routes correctly.
+     * Tests that setRoutes populates the routes array.
      *
      * @return bool
      */
-    public function test_setRoutes_sets_routes_correctly() : bool
+    public function test_setRoutes_populates_routes_array() : bool
     {
         $router = new Router;
 
         $expected_routes = [
-            '/some/route/to/somewhere' => 'SomeController::method',
-            '/another/route/going/places' => 'AnotherController::places',
-            '/final/destination' => 'FinalDestinationController:arrive',
-            '/' => 'HomeController::home'
+            '/some/route/to/somewhere' => [
+                'method' => 'SomeController::method',
+                'arguments' => []
+            ],
+            '/another/route/going/places' => [
+                'method' => 'AnotherController::places',
+                'arguments' => []
+            ],
+            '/final/destination' => [
+                'method' => 'FinalDestinationController:arrive',
+                'arguments' => []
+            ],
+            '/' => [
+                'method' => 'HomeController::home',
+                'arguments' => []
+            ],
+            '/{placeholder}'=> [
+                'method' => 'HomeController::home',
+                'arguments' => [
+                    'placeholder'
+                ]
+            ]
         ];
 
         $router->setRoutes($expected_routes);
