@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background: #8080FF;
+}
+
+header {
+    padding: 1em;
+    height: 150px;
+    background:#f8f8f8;
+}
+
+h1 {
+    color: #8080FF;
+    font-family: sans-serif;
+    font-size: 5em;
+}

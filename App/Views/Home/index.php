@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>CRUDy</title>
+        <link rel="stylesheet" href="App/Assets/Home/style.css">
     </head>
     <body>
-        <div>
-            <span>Hello, World!</span>
-        </div>
+        <header>
+            <h1>Hello, World!</h1>
+        </header>
     </body>
 </html>
