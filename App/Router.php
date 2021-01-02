@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Controllers\HttpController;
+
 class Router
 {
     /**
@@ -47,7 +49,7 @@ class Router
 
             return (new $class)->$method();
         } else {
-            return '';
+            return (new HttpController)->http404();
         }
     }
 
