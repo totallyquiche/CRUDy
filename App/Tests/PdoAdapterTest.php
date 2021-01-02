@@ -13,10 +13,6 @@ class PdoAdapterTest extends BaseTest
      */
     public function test_getInstance_returns_same_instance()
     {
-        $old_instance = PdoAdapter::getInstance();
-
-        $new_instance = PdoAdapter::getInstance();
-
-        return $old_instance === $new_instance;
+        return PdoAdapter::getInstance() === PdoAdapter::getInstance();
     }
 }
