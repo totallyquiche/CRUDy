@@ -73,9 +73,9 @@ class BaseModelTest extends BaseTest
         $mock = $this->getBaseModelMock($this->database_adapter);
 
         $reflection = new ReflectionObject($mock);
-        $database_adapter_interface_property = $reflection->getProperty('database_adapter_interface');
-        $database_adapter_interface_property->setAccessible(true);
-        $database_adapter = $database_adapter_interface_property->getValue($mock);
+        $database_adapter_property = $reflection->getProperty('database_adapter');
+        $database_adapter_property->setAccessible(true);
+        $database_adapter = $database_adapter_property->getValue($mock);
 
         return $pdo_adapter === $database_adapter;
     }
@@ -111,11 +111,11 @@ class BaseModelTest extends BaseTest
     /**
      * Get a mock of BaseModel.
      *
-     * @param DatabaseAdapterInterface $database_adapter_interface
+     * @param DatabaseAdapterInterface $database_adapter
      *
      * @return BaseModel
      */
-    private function getBaseModelMock(DatabaseAdapterInterface $database_adapter_interface) : BaseModel
+    private function getBaseModelMock(DatabaseAdapterInterface $database_adapter) : BaseModel
     {
         $class_name = 'BaseModelMock_' . str_replace('.', '_', microtime(true));
 
@@ -132,7 +132,7 @@ class BaseModelTest extends BaseTest
 
         $fully_qualified_class_name = 'App\\Models\\' . $class_name;
 
-        return new $fully_qualified_class_name($database_adapter_interface);
+        return new $fully_qualified_class_name($database_adapter);
     }
 
     /**

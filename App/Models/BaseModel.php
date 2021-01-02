@@ -25,18 +25,18 @@ abstract class BaseModel
      *
      * @param DatabaseAdapterInterface|null
      */
-    protected ?DatabaseAdapterInterface $database_adapter_interface;
+    protected ?DatabaseAdapterInterface $database_adapter;
 
     /**
      * Instantiate the model with a database adapter.
      *
-     * @param DatabaseAdapterInterface $database_adapter_interface
+     * @param DatabaseAdapterInterface $database_adapter
      *
      * @return void
      */
-    public function __construct(DatabaseAdapterInterface $database_adapter_interface)
+    public function __construct(DatabaseAdapterInterface $database_adapter)
     {
-        $this->database_adapter_interface = $database_adapter_interface;
+        $this->database_adapter = $database_adapter;
     }
 
     /**
@@ -46,7 +46,7 @@ abstract class BaseModel
      */
     public function all() : array
     {
-        return $this->database_adapter_interface->query("SELECT * FROM `$this->table_name`;");
+        return $this->database_adapter->query("SELECT * FROM `$this->table_name`;");
     }
 
     /**
@@ -58,7 +58,7 @@ abstract class BaseModel
      */
     public function find(int $id) : array
     {
-        return $this->database_adapter_interface->query(
+        return $this->database_adapter->query(
             "SELECT * FROM `$this->table_name` WHERE `$this->primary_key` = $id"
         );
     }
