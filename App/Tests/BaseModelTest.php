@@ -40,7 +40,7 @@ class BaseModelTest extends BaseTest
     {
         $this->table_name = 'base_model' . '_' . str_replace('.', '_', microtime(true));
 
-        $this->database_adapter = new PdoAdapter(
+        $this->database_adapter = PdoAdapter::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
