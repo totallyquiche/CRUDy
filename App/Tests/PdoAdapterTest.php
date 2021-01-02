@@ -100,4 +100,33 @@ class PdoAdapterTest extends BaseTest
             isset($query_results[0][$column_name]) &&
             $query_results[0][$column_name] === $row_value;
     }
+
+    /**
+     * Test that execute() executes a query.
+     *
+     * @return bool
+     */
+    public function test_execute_executes_query()
+    {
+        $this->database_adapter = PdoAdapter::getInstance(
+            Config::get('TEST_DB_HOST'),
+            Config::get('TEST_DB_NAME'),
+            Config::get('TEST_DB_USER'),
+            Config::get('TEST_DB_PASSWORD')
+        );
+
+        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', microtime(true));
+        $column_name = 'test_name';
+
+        $this->database_adapter->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
+
+        $db_tables = $this->database_adapter->query('SHOW TABLES');
+
+        $this->database_adapter->execute("DROP TABLE `$table_name`");
+
+        return
+            (count($db_tables) === 1) &&
+            (count($db_tables[0]) === 1) &&
+            array_shift($db_tables[0]) === $table_name;
+    }
 }
