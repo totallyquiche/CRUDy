@@ -25,20 +25,15 @@ class PdoAdapter implements DatabaseAdapterInterface
     /**
      * Sets the Pdo instance. Defaults to using the DB info in the app config.
      *
-     * @param string|null $db_host
-     * @param string|null $db_name
-     * @param string|null $db_user
-     * @param string|null $db_password
+     * @param string $db_host
+     * @param string $db_name
+     * @param string $db_user
+     * @param string $db_password
      *
      * @return void
      */
-    private function setPdo(string $db_host = null, string $db_name = null, string $db_user = null, string $db_password = null)
+    private function setPdo(string $db_host, string $db_name, string $db_user, string $db_password)
     {
-        $db_host = $db_host ?? Config::get('DB_HOST');
-        $db_name = $db_name ?? Config::get('DB_NAME');
-        $db_user = $db_user ?? Config::get('DB_USER');
-        $db_password = $db_password ?? Config::get('DB_PASSWORD');
-
         $dsn = "mysql:host=$db_host;dbname=$db_name;charset=utf8mb4";
 
         $options = [
