@@ -69,7 +69,13 @@ class PdoAdapter implements DatabaseAdapterInterface
      */
     public static function getInstance(string $db_host = null, string $db_name = null, string $db_user = null, string $db_password = null) : DatabaseAdapterInterface
     {
-        if (is_null(self::$self)) {
+
+        // If we are connecting to a new DB or this is the first time connecting,
+        // create a new connection.
+        if (
+            ($db_host && $db_name && $db_user && $db_password) ||
+            is_null(self::$self)
+        ) {
             self::$self = new self;
 
             self::$self->setPdo(
