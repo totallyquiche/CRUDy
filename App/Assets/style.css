@@ -4,8 +4,8 @@ body {
 }
 
 header {
-    padding: 1em;
-    height: 150px;
+    padding: 1em 0 0 1em;
+    min-height: 150px;
     background:#f8f8f8;
 }
 
