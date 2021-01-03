@@ -1,5 +1,7 @@
 # CRUDy
 
+![CRUDy preview](preview.png)
+
 CRUDy is a PHP framework for classic CRUD sites.
 
 There are no dependencies since everything is built from scratch -- you won't find a `composer.json` file here!
