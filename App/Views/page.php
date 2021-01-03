@@ -9,5 +9,8 @@
         <header>
             <h1><?= $header_text ?></h1>
         </header>
+        <main>
+            <span id="poop-emoji">💩</span>
+        </main>
     </body>
 </html>
