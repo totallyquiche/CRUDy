@@ -28,3 +28,39 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 1. Clone the repo: `git clone git@github.com:totallyquiche/CRUDy.git`
 1. Create your config file: `cp .env.example .env`
 1. Start your PHP server: `php -S localhost:80`
+
+That's it! But you probably want to do more than that...
+
+### Create a New Page
+
+Add a new route to the `$routes` array in `index.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+
+```php
+$router->register('/', 'HomeController::index');
+```
+
+```php
+$router->register('/', function () {
+    return 'Hello, World!';
+});
+```
+
+### Create a Controller
+
+Create a new class in `App/Controllers` that extends `App\Controller\BaseController`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
+
+The controller should contain methods matching any register routes you have. For example, if I have registerd a route referencing `HomeController::index`, then I should have a controller named `HomeController` with a method named `index()` which returns a string.
+
+### Create a View
+
+Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->loadView()` in the controller method.
+
+The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
+
+For example, calling the below method call will result in the the `show_object` view (`App/Views/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
+
+```php
+$this->loadView(string $view_name, array $args = [
+    'object_name' => 'Object Name';
+]);
+```
