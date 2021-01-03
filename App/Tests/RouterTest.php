@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Router;
+use App\Response;
 use \ReflectionObject;
 
 class RouterTest extends BaseTest
@@ -39,10 +40,12 @@ class RouterTest extends BaseTest
         $controller_class_definition = <<<CLASS
             namespace App\Controllers;
 
+            use App\Request;
+
             class {$controller_class_name} {
-                public function action() : string
+                public function action(Request \$request) : string
                 {
-                    return'{$random_number}';
+                    return $random_number;
                 }
             }
         CLASS;
@@ -54,7 +57,11 @@ class RouterTest extends BaseTest
 
         $router->register($route, $controller_method);
 
-        return $router->callRouteMethod($route) === $random_number;
+        $response = $router->callRouteMethod($route);
+
+        return
+            $response instanceof Response &&
+            (string) $response === (string) new Response($random_number);
     }
 
     /**

@@ -2,14 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Request;
+
 class HttpController extends BaseController
 {
     /**
      * Render the home page.
      *
+     * @param Request $request
+     *
      * @return string
      */
-    public function http404() : string
+    public function http404(Request $request) : string
     {
         http_response_code(404);
 
