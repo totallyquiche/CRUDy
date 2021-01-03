@@ -5,9 +5,15 @@ require_once(__DIR__ . '/bootstrap.php');
 use App\Router;
 
 (function () {
+    $routes = [
+        '/' => 'HomeController::index'
+    ];
+
     $router = new Router;
 
-    $router->register('/', 'HomeController::index');
+    foreach ($routes as $key => $value) {
+        $router->register($key, $value);
+    }
 
     echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
 })();
