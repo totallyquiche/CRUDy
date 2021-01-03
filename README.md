@@ -91,4 +91,4 @@ php App/Tests/run_tests.php
 
 ### Test results
 
-After running your tests, you will see the results printed to the screen. If every test in a class passes, you'll see the class name and the word "Passed". If a test fails, then you'll see the class name, the word "Failed", and the name of the test method that failed (returned `false`);
+After running your tests, you will see the results printed to the screen. If every test in a class passes, you'll see the class name and the word "Passed". If a test fails, then you'll see the class name, the word "Failed", and the name of the test method that failed (returned `false`).
