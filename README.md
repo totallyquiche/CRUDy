@@ -65,3 +65,30 @@ $this->loadView(string $view_name, array $args = [
     'object_name' => 'Object Name';
 ]);
 ```
+
+## Testing
+
+### Writing Tests
+
+Create a new class in `App/Tests` that extends `App\Tests\BaseTest`. The class name should end with `Test` (e.g. `HomeControllerTest`). The file name should be the class name plus `.php` (e.g. `HomeControllerTest.php`).
+
+Your test methods should be `public`, should start with `test_`, and should return a `boolean` indicating whether the test passed.
+
+```php
+public function test_that_true_is_true()
+{
+    return true === true;
+}
+```
+
+### Running Tests
+
+As long as you follow the above naming conventions, your tests will be run automatically through the following command:
+
+```php
+php App/Tests/run_tests.php
+```
+
+### Test results
+
+After running your tests, you will see the results printed to the screen. If every test in a class passes, you'll see the class name and the word "Passed". If a test fails, then you'll see the class name, the word "Failed", and the name of the test method that failed (returned `false`);
