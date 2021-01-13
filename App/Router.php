@@ -39,6 +39,7 @@ class Router
     public function callRouteMethod(string $route) : Response
     {
         $method = $this->routes[$route];
+        $uri = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
         if (is_callable($method)) {
             $response_data = $method();
@@ -47,10 +48,10 @@ class Router
 
             $class = 'App\\Controllers\\' . $controller;
 
-            $response_data = (new $class)->$method(new Request);
+            $response_data = (new $class)->$method(new Request($uri));
 
         } else {
-            $response_data = (new HttpController)->http404(new Request);
+            $response_data = (new HttpController)->http404(new Request($uri));
         }
 
         return new Response($response_data);
