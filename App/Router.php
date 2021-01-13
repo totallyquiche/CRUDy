@@ -30,16 +30,16 @@ class Router
     }
 
     /**
-     * Get the rendered content for the provided route.
+     * Get the rendered content for the provided request.
      *
-     * @param string $route
+     * @param Request $request
      *
      * @return Response
      */
-    public function callRouteMethod(string $route) : Response
+    public function callRouteMethod(Request $request) : Response
     {
+        $route = parse_url($request->getUri(), PHP_URL_PATH);
         $method = $this->routes[$route];
-        $uri = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
         if (is_callable($method)) {
             $response_data = $method();
@@ -48,10 +48,10 @@ class Router
 
             $class = 'App\\Controllers\\' . $controller;
 
-            $response_data = (new $class)->$method(new Request($uri));
+            $response_data = (new $class)->$method($request);
 
         } else {
-            $response_data = (new HttpController)->http404(new Request($uri));
+            $response_data = (new HttpController)->http404($request);
         }
 
         return new Response($response_data);

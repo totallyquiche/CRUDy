@@ -12,6 +12,13 @@ class Request
     private $uri;
 
     /**
+     * The request Method (e.g., POST, GET)
+     *
+     * @var string
+     */
+    private $method;
+
+    /**
      * An array representing GET params sent with the request.
      *
      * @var array
@@ -19,19 +26,30 @@ class Request
     private $queries;
 
     /**
+     * An array representng POST data sent with the request.
+     *
+     * @var array
+     */
+    private $data;
+
+    /**
      * Construct the request. Set the request URI.
      *
-     * @param string
+     * @param string $uri
+     * @param string $method
      *
      * @return void
      */
-    public function __construct(string $uri)
+    public function __construct(string $uri, string $method)
     {
         $this->uri = $uri;
+        $this->method = $method;
 
         $this->queries = $this->parseQueries(
             parse_url($this->uri, PHP_URL_QUERY) ?? ''
         );
+
+        $this->data = $this->getDataFromPost();
     }
 
     /**
@@ -51,6 +69,22 @@ class Request
     }
 
     /**
+     * Get the data from the POST.
+     *
+     * @return array
+     */
+    private function getDataFromPost() : array
+    {
+        $data = [];
+
+        foreach ($_POST as $key => $value) {
+            $data[$key] = $value;
+        }
+
+        return $data;
+    }
+
+    /**
      * Return this Request's queries array.
      *
      * @return array
@@ -58,5 +92,15 @@ class Request
     public function getQueries() : array
     {
         return $this->queries;
+    }
+
+    /**
+     * Return this Request's URI.
+     *
+     * @return string
+     */
+    public function getUri() : string
+    {
+        return $this->uri;
     }
 }

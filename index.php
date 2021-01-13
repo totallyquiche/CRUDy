@@ -3,6 +3,7 @@
 require_once(__DIR__ . '/bootstrap.php');
 
 use App\Router;
+use App\Request;
 
 (function () {
     $routes = [
@@ -16,6 +17,9 @@ use App\Router;
     }
 
     echo $router->callRouteMethod(
-        parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        new Request(
+            $_SERVER['REQUEST_URI'],
+            $_SERVER['REQUEST_METHOD']
+        )
     );
 })();
