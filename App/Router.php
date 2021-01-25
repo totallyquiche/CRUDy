@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Controllers\HttpController;
+use App\Http\Request;
 
 class Router
 {
@@ -39,17 +40,18 @@ class Router
     public function callRouteMethod(string $route) : string
     {
         $method = $this->routes[$route];
+        $request = new Request;
 
         if (is_callable($method)) {
-            return $method();
+            return $method($request);
         } elseif (isset($this->routes[$route])) {
             list($controller, $method) = explode('::', $this->routes[$route]);
 
             $class = 'App\\Controllers\\' . $controller;
 
-            return (new $class)->$method();
+            return (new $class)->$method($request);
         } else {
-            return (new HttpController)->http404();
+            return (new HttpController)->http404($request);
         }
     }
 
