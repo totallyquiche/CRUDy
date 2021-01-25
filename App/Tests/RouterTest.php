@@ -52,7 +52,12 @@ class RouterTest extends BaseTest
         $route = '/route/to/something';
         $controller_method = $controller_class_name . '::action';
 
-        $router->register($route, $controller_method);
+        $router->register(
+            $route,
+            [
+                '' => $controller_method //No HTTP method when running via CLI
+            ]
+        );
 
         return $router->callRouteMethod($route) === $random_number;
     }

@@ -6,7 +6,9 @@ use App\Router;
 
 (function () {
     $routes = [
-        '/' => 'HomeController::index'
+        '/' => [
+            'GET' => 'HomeController::index'
+        ]
     ];
 
     $router = new Router;

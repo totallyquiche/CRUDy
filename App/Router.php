@@ -39,13 +39,14 @@ class Router
      */
     public function callRouteMethod(string $route) : string
     {
-        $method = $this->routes[$route];
         $request = new Request($_SERVER['REQUEST_METHOD'] ?? '');
+
+        $method = $this->routes[$route][$request->getMethod()] ?? '';
 
         if (is_callable($method)) {
             return $method($request);
-        } elseif (isset($this->routes[$route])) {
-            list($controller, $method) = explode('::', $this->routes[$route]);
+        } elseif ($method) {
+            list($controller, $method) = explode('::', $method);
 
             $class = 'App\\Controllers\\' . $controller;
 

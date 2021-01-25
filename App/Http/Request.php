@@ -32,4 +32,14 @@ class Request
     {
         $this->method = $method;
     }
+
+    /**
+     * Get the request method.
+     *
+     * @return string
+     */
+    public function getMethod() : string
+    {
+        return $this->method;
+    }
 }
