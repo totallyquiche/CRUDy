@@ -94,7 +94,7 @@ php App/Tests/run_tests.php
 You can run an individual test by passing in the test name as an argument:
 
 ```
-php App/Tests/run_tests.php "App/Tests/RouterTest"
+php App/Tests/run_tests.php "App\Tests\RouterTest"
 ```
 
 ### Test results
