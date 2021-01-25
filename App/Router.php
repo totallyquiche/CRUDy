@@ -5,6 +5,8 @@ namespace App;
 use App\Controllers\HttpController;
 use App\Http\Request;
 
+use function \getallheaders;
+
 class Router
 {
     /**
@@ -42,7 +44,10 @@ class Router
      */
     public function callRouteMethod(string $route) : string
     {
-        $request = new Request($_SERVER['REQUEST_METHOD'] ?? '');
+        $request = new Request(
+            $_SERVER['REQUEST_METHOD'] ?? '',
+            $this->getHeaders()
+        );
 
         $method = $this->routes[$route][strtoupper($request->getMethod())] ?? '';
 
@@ -79,5 +84,27 @@ class Router
     public function setRoutes(array $routes) : void
     {
         $this->routes = $routes;
+    }
+
+    /**
+     * Get the request headers.
+     *
+     * @return array
+     */
+    private function getHeaders() : array
+    {
+        $headers = [];
+
+        if (!function_exists('getallheaders')) {
+            foreach ($_SERVER as $name => $value) {
+                if (substr($name, 0, 5) == 'HTTP_') {
+                    $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                }
+            }
+        } else {
+            $headers = getallheaders();
+        }
+
+        return $headers;
     }
 }

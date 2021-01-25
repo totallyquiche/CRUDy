@@ -17,9 +17,14 @@ class RouterTest extends BaseTest
     {
         $router = new Router;
         $route = '/path/to/somewhere';
-        $controller_method = 'SomeController::action';
+        $controller_method = [
+            'GET' => 'SomeController::action'
+        ];
 
-        $router->register($route, $controller_method);
+        $router->register(
+            $route,
+            $controller_method
+        );
 
         return ($router->getRoutes()[$route] ?? null) === $controller_method;
     }
