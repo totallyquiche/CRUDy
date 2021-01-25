@@ -40,7 +40,7 @@ class Router
     public function callRouteMethod(string $route) : string
     {
         $method = $this->routes[$route];
-        $request = new Request;
+        $request = new Request($_SERVER['REQUEST_METHOD'] ?? '');
 
         if (is_callable($method)) {
             return $method($request);
