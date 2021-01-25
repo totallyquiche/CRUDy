@@ -17,17 +17,20 @@ class Router
     /**
      * Register a route.
      *
-     * $route is the route key and $method is either a string in the format
-     * ControllerName::methodName or a Callable.
+     * $route is the route key and $method a key => pair
+     * value with the HTTP method and controller method to use like
+     * 'GET' => 'HomeController::index' or 'GET' => Callable.
      *
-     * @param string          $route
-     * @param string|callable $method
+     * @param string $route
+     * @param array  $methods
      *
      * @return void
      */
-    public function register(string $route, $method) : void
+    public function register(string $route, array $methods) : void
     {
-        $this->routes[$route] = $method;
+        foreach ($methods as $key => $value) {
+            $this->routes[$route][strtoupper($key)] = $value;
+        }
     }
 
     /**
@@ -41,7 +44,7 @@ class Router
     {
         $request = new Request($_SERVER['REQUEST_METHOD'] ?? '');
 
-        $method = $this->routes[$route][strtolower($request->getMethod())] ?? '';
+        $method = $this->routes[$route][strtoupper($request->getMethod())] ?? '';
 
         if (is_callable($method)) {
             return $method($request);
