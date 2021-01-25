@@ -41,7 +41,7 @@ class Router
     {
         $request = new Request($_SERVER['REQUEST_METHOD'] ?? '');
 
-        $method = $this->routes[$route][$request->getMethod()] ?? '';
+        $method = $this->routes[$route][strtolower($request->getMethod())] ?? '';
 
         if (is_callable($method)) {
             return $method($request);
