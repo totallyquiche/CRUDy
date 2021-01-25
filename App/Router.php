@@ -46,7 +46,8 @@ class Router
     {
         $request = new Request(
             $_SERVER['REQUEST_METHOD'] ?? '',
-            $this->getHeaders()
+            $this->getHeaders(),
+            $this->getParams()
         );
 
         $method = $this->routes[$route][strtoupper($request->getMethod())] ?? '';
@@ -106,5 +107,27 @@ class Router
         }
 
         return $headers;
+    }
+
+    /**
+     * Get the request params.
+     *
+     * @return array
+     */
+    private function getParams() : array
+    {
+        $params = [];
+
+        switch ($_SERVER['REQUEST_METHOD'])
+        {
+            case 'GET':
+                $params = $_GET;
+                break;
+            case 'POST':
+                $params = $_POST;
+                break;
+        }
+
+        return $params;
     }
 }

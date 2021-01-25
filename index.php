@@ -17,5 +17,5 @@ use App\Router;
         $router->register($key, $value);
     }
 
-    echo $router->callRouteMethod($_SERVER['REQUEST_URI']);
+    echo $router->callRouteMethod(explode('?', $_SERVER['REQUEST_URI'], 2)[0]);
 })();

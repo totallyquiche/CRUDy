@@ -15,17 +15,24 @@ class Request
     private array $headers;
 
     /**
+     * @var array
+     */
+    private array $params;
+
+    /**
      * Set the request method.
      *
      * @param string $method
      * @param array  $headers
+     * @param array  $params
      *
      * @return void
      */
-    public function __construct(string $method, array $headers = [])
+    public function __construct(string $method, array $headers = [], array $params = [])
     {
         $this->setMethod($method);
         $this->setHeaders($headers);
+        $this->setParams($params);
     }
 
     /**
@@ -70,5 +77,27 @@ class Request
     public function getHeaders() : array
     {
         return $this->headers;
+    }
+
+    /**
+     * Set the request params.
+     *
+     * @param array $params
+     *
+     * @return void
+     */
+    public function setParams(array $params) : void
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * Get the request params.
+     *
+     * @return array
+     */
+    public function getParams() : array
+    {
+        return $this->params;
     }
 }
