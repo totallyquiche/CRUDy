@@ -87,8 +87,14 @@ public function test_that_true_is_true()
 
 As long as you follow the above naming conventions, your tests will be run automatically through the following command:
 
-```php
+```
 php App/Tests/run_tests.php
+```
+
+You can run an individual test by passing in the test name as an argument:
+
+```
+php App/Tests/run_tests.php "App/Tests/RouterTest"
 ```
 
 ### Test results

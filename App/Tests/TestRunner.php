@@ -10,11 +10,13 @@ class TestRunner
     /**
      * Run all tests.
      *
+     * @param array $test_classes
+     *
      * @return void
      */
-    public function run() : void
+    public function run(array $test_classes) : void
     {
-        foreach ($this->getTestClasses() as $test_class) {
+        foreach ($test_classes as $test_class) {
             if (class_exists($test_class) && $test_class !== BaseTest::class) {
                 $test_class = new $test_class;
 

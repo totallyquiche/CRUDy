@@ -4,4 +4,6 @@ namespace App\Tests;
 
 require_once(__DIR__ . '/../../bootstrap.php');
 
-(new TestRunner)->run();
+isset($argv[1]) ? $tests = [$argv[1]] : $tests = TestRunner::getAllTestClasses();
+
+(new TestRunner)->run($tests);
