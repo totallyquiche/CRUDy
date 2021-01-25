@@ -30,7 +30,7 @@ class TestRunner
      *
      * @return array
      */
-    private function getTestClasses() : array
+    public static function getAllTestClasses() : array
     {
         $test_classes = [];
 
