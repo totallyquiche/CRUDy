@@ -16,7 +16,7 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 - Routing
 - Templating
 - Testing
-- PSR-4 autoloading
+- Autoloading
 - MVC architecture
 - Custom environment variables (.env)
 - Database abstraction
