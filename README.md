@@ -53,7 +53,7 @@ The controller should contain methods matching any register routes you have. For
 
 ### Create a View
 
-Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->loadView()` in the controller method.
+Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->loadView($view_name, $args)` in the controller method.
 
 The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
 
@@ -63,6 +63,71 @@ For example, calling the below method call will result in the the `show_object` 
 $this->loadView(string $view_name, array $args = [
     'object_name' => 'Object Name';
 ]);
+```
+
+A values in `$args` can also be a `Callable`. For example, calling the method below will give the view access to a variable called `$message` with the value `Hello, World!`:
+
+```php
+$this->loadView(string $view_name, array $args = [
+    'message' => function() {
+        return 'Hello, World!';
+    },
+]);
+```
+
+## Templates
+
+Templates may be used to support a type of single-inheritance View in which the string `{{ 💩 }}` in the Template is replaced with the contents of the View. For example, given the following Template:
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= App\Config::get('SITE_TITLE') ?></title>
+</head>
+<body>
+    {{ 💩 }}
+</body>
+</html>
+```
+
+and the following View:
+
+```php
+<h1>Hello, World!</h1>
+```
+
+the following will be rendered:
+
+```php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= App\Config::get('SITE_TITLE') ?></title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+```
+
+### Creating a Template
+
+Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and live in `App\Views\Templates`. The should contain a single placeholder, `{{ 💩 }}` for embedding Views within them.
+
+### Using a Template
+
+To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\Views\Templates\page.php`:
+
+```php
+{{ page }}
+<h1>Hello, World!</h1>
 ```
 
 ## Testing
