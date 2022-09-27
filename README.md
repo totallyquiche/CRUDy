@@ -130,6 +130,10 @@ To use a Template, ensure that the first line of your View file contains a strin
 <h1>Hello, World!</h1>
 ```
 
+## View Caching
+
+After a View has been fully compiled, it is written to a cache located at `App\Views\Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
+
 ## Testing
 
 ### Writing Tests
