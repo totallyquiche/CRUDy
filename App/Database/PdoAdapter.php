@@ -25,16 +25,17 @@ class PdoAdapter implements DatabaseAdapterInterface
     /**
      * Sets the Pdo instance. Defaults to using the DB info in the app config.
      *
-     * @param string $db_host
-     * @param string $db_name
-     * @param string $db_user
-     * @param string $db_password
+     * @param string $host
+     * @param string $name
+     * @param string $user
+     * @param string $password
+     * @param string $port
      *
      * @return void
      */
-    private function setPdo(string $db_host, string $db_name, string $db_user, string $db_password)
+    private function setPdo(string $host, string $name, string $user, string $password, string $port)
     {
-        $dsn = "mysql:host=$db_host;dbname=$db_name;charset=utf8mb4";
+        $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
 
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -43,7 +44,7 @@ class PdoAdapter implements DatabaseAdapterInterface
         ];
 
         try {
-            $this->pdo = new PDO($dsn, $db_user, $db_password, $options);
+            $this->pdo = new PDO($dsn, $user, $password, $options);
        } catch (PDOException $exception) {
             throw new PDOException(
                 $exception->getMessage(),
@@ -55,29 +56,31 @@ class PdoAdapter implements DatabaseAdapterInterface
     /**
      * Singleton to ensure we always use the same instance of this class.
      *
-     * @param string|null $db_host
-     * @param string|null $db_name
-     * @param string|null $db_user
-     * @param string|null $db_password
+     * @param string|null $host
+     * @param string|null $name
+     * @param string|null $user
+     * @param string|null $password
+     * @param string|null $port
      *
      * @return DatabaseAdapterInterface
      */
-    public static function getInstance(string $db_host = null, string $db_name = null, string $db_user = null, string $db_password = null) : DatabaseAdapterInterface
+    public static function getInstance(string $host = null, string $name = null, string $user = null, string $password = null, string $port = null) : DatabaseAdapterInterface
     {
 
         // If we are connecting to a new DB or this is the first time connecting,
         // create a new connection.
         if (
-            ($db_host && $db_name && $db_user && $db_password) ||
+            ($host && $name && $user && $password) ||
             is_null(self::$self)
         ) {
             self::$self = new self;
 
             self::$self->setPdo(
-                $db_host ?? Config::get('DB_HOST'),
-                $db_name ?? Config::get('DB_NAME'),
-                $db_user ?? Config::get('DB_USER'),
-                $db_password ?? Config::get('DB_PASSWORD')
+                $host ?? Config::get('DB_HOST'),
+                $name ?? Config::get('DB_NAME'),
+                $user ?? Config::get('DB_USER'),
+                $password ?? Config::get('DB_PASSWORD'),
+                $port ?? Config::get('DB_PORT')
             );
         }
 

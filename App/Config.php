@@ -40,7 +40,7 @@ class Config
      *
      * @param string $config_name
      *
-     * @return string|null
+     * @return null|string
      */
     public static function get(string $config_name) : ?string
     {

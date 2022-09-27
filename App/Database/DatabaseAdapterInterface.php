@@ -24,4 +24,13 @@ interface DatabaseAdapterInterface
      * @return array
      */
     public function query(string $query) : array;
+
+    /**
+     * Execute a query.
+     *
+     * @param string $query
+     *
+     * @return void
+     */
+    public function execute(string $query) : void;
 }
