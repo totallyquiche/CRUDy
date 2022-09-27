@@ -21,7 +21,7 @@ abstract class BaseController
 
         if (
             !is_readable($cache_file_path) ||
-            ($cache_file_mod_time + Config::get('TEMPLATE_CACHE_SECONDS_TO_EXPIRY')) <= time()
+            ($cache_file_mod_time + Config::get('VIEW_CACHE_SECONDS_TO_EXPIRY')) <= time()
         ) {
             foreach ($args as $key => $value) {
                 $$key = is_callable($value) ? $value() : $value;
