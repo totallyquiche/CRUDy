@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background: #8080FF;
+    font-family: sans-serif;
 }
 
 header {
@@ -11,6 +12,11 @@ header {
 
 h1 {
     color: #8080FF;
-    font-family: sans-serif;
     font-size: 5em;
+}
+
+main {
+    width: calc(100% - 2em);
+    margin-left: 1em;
+    color: #f8f8f8;
 }
