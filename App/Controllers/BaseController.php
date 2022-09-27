@@ -24,7 +24,7 @@ abstract class BaseController
             ($cache_file_mod_time + Config::get('TEMPLATE_CACHE_SECONDS_TO_EXPIRY')) <= time()
         ) {
             foreach ($args as $key => $value) {
-                $$key = $value;
+                $$key = is_callable($value) ? $value() : $value;
             }
 
             $file_path = __DIR__ . '/../Views/' . $view_name . '.php';
@@ -42,6 +42,12 @@ abstract class BaseController
             }
 
             file_put_contents($cache_file_path, $file_contents);
+
+            ob_start();
+
+            include($cache_file_path);
+
+            file_put_contents($cache_file_path, ob_get_clean());
         }
 
         ob_start();
