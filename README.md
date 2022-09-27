@@ -14,11 +14,12 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 
 ## Features
 - Autoloading
+- Page caching
 - Custom environment variables (.env)
 - Database connection abstraction
 - MVC architecture
 - Routing
-- Templates and Caching
+- Templates
 - Testing
 
 ## Getting Started
