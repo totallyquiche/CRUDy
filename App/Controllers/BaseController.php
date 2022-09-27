@@ -50,10 +50,6 @@ abstract class BaseController
             file_put_contents($cache_file_path, ob_get_clean());
         }
 
-        ob_start();
-
-        include($cache_file_path);
-
-        return ob_get_clean();
+        return file_get_contents($cache_file_path);
     }
 }
