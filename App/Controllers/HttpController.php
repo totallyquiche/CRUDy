@@ -13,8 +13,6 @@ class HttpController extends BaseController
     {
         http_response_code(404);
 
-        return $this->loadView('page', [
-            'header_text' => '404 Not Found'
-        ]);
+        return $this->loadView('404');
     }
 }
