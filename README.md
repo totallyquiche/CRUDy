@@ -13,13 +13,13 @@ CRUDy is _not_ meant to be used in production. I'm not doing anything here that 
 Feedback is still welcome! You can even open up a Pull Request if you'd like. :smile:
 
 ## Features
-- Routing
-- Templating
-- Testing
 - Autoloading
-- MVC architecture
 - Custom environment variables (.env)
 - Database connection abstraction
+- MVC architecture
+- Routing
+- Templates and Caching
+- Testing
 
 ## Getting Started
 
