@@ -5,7 +5,7 @@ namespace App\Tests;
 use App\Router;
 use \ReflectionObject;
 
-class RouterTest extends BaseTest
+final class RouterTest extends BaseTest
 {
     /**
      * Test that the register function adds a route and it's controller method to
@@ -33,7 +33,7 @@ class RouterTest extends BaseTest
     public function test_callRouteMethod_calls_correct_controller_method() : bool
     {
         $router = new Router;
-        $controller_class_name = 'SomeController_' . str_replace('.', '_', microtime(true));
+        $controller_class_name = 'SomeController_' . str_replace('.', '_', (string) microtime(true));
         $random_number = (string) mt_rand();
 
         $controller_class_definition = <<<CLASS

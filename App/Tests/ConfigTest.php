@@ -5,7 +5,7 @@ namespace App\Tests;
 use App\Config;
 use \ReflectionClass;
 
-class ConfigTest extends BaseTest
+final class ConfigTest extends BaseTest
 {
     /**
      * Tests that the load method correctly loads key/value pairs from file path.

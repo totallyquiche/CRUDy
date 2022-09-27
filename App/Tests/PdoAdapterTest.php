@@ -5,7 +5,7 @@ namespace App\Tests;
 use App\Database\PdoAdapter;
 use App\Config;
 
-class PdoAdapterTest extends BaseTest
+final class PdoAdapterTest extends BaseTest
 {
     /**
      * Test that getInstance() returns the same instance of the PdoAdapter.
@@ -29,14 +29,16 @@ class PdoAdapterTest extends BaseTest
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
-            Config::get('DB_PASSWORD')
+            Config::get('DB_PASSWORD'),
+            Config::get('DB_PORT')
         );
 
         $second_instance = PdoAdapter::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
-            Config::get('TEST_DB_PASSWORD')
+            Config::get('TEST_DB_PASSWORD'),
+            Config::get('TEST_DB_PORT')
         );
 
         return $first_instance != $second_instance;
@@ -54,14 +56,16 @@ class PdoAdapterTest extends BaseTest
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
-            Config::get('DB_PASSWORD')
+            Config::get('DB_PASSWORD'),
+            Config::get('DB_PORT')
         );
 
         $second_instance = PdoAdapter::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
-            Config::get('TEST_DB_PASSWORD')
+            Config::get('TEST_DB_PASSWORD'),
+            Config::get('TEST_DB_PORT')
         );
 
         $third_instance = PdoAdapter::getInstance();
@@ -80,10 +84,11 @@ class PdoAdapterTest extends BaseTest
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
-            Config::get('TEST_DB_PASSWORD')
+            Config::get('TEST_DB_PASSWORD'),
+            Config::get('TEST_DB_PORT')
         );
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', microtime(true));
+        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
         $row_value = 'test value';
 
@@ -112,10 +117,11 @@ class PdoAdapterTest extends BaseTest
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
-            Config::get('TEST_DB_PASSWORD')
+            Config::get('TEST_DB_PASSWORD'),
+            Config::get('TEST_DB_PORT')
         );
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', microtime(true));
+        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
 
         $this->database_adapter->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");

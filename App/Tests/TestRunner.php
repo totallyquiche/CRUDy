@@ -4,7 +4,7 @@ namespace App\Tests;
 
 use App\Tests\BaseTest;
 
-class TestRunner
+final class TestRunner
 {
     /**
     /**

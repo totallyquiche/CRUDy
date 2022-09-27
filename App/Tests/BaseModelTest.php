@@ -8,7 +8,7 @@ use App\Database\PdoAdapter;
 use \ReflectionObject;
 use App\Config;
 
-class BaseModelTest extends BaseTest
+final class BaseModelTest extends BaseTest
 {
     /**
      * Name of the database table used for these tests.
@@ -38,7 +38,7 @@ class BaseModelTest extends BaseTest
      */
     public function setup() : void
     {
-        $this->table_name = 'base_model' . '_' . str_replace('.', '_', microtime(true));
+        $this->table_name = 'base_model' . '_' . str_replace('.', '_', (string) microtime(true));
 
         $this->database_adapter = PdoAdapter::getInstance(
             Config::get('TEST_DB_HOST'),
@@ -117,7 +117,7 @@ class BaseModelTest extends BaseTest
      */
     private function getBaseModelMock(DatabaseAdapterInterface $database_adapter) : BaseModel
     {
-        $class_name = 'BaseModelMock_' . str_replace('.', '_', microtime(true));
+        $class_name = 'BaseModelMock_' . str_replace('.', '_', (string) microtime(true));
 
         $mock_class = <<<CLASS
             namespace App\Models;
