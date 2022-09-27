@@ -19,7 +19,7 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 - Autoloading
 - MVC architecture
 - Custom environment variables (.env)
-- Database abstraction
+- Database connection abstraction
 
 ## Getting Started
 
