@@ -11,8 +11,6 @@ class HomeController extends BaseController
      */
     public function index() : string
     {
-        return $this->loadView('home', [
-            'header_text' => 'Hello, World!'
-        ]);
+        return $this->loadView('home');
     }
 }
