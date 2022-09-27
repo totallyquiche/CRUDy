@@ -6,14 +6,14 @@ use App\Config;
 use \PDO;
 use \PDOException;
 
-class PdoAdapter implements DatabaseAdapterInterface
+class PdoConnector implements DatabaseConnectorInterface
 {
     /**
      * Instance of this class.
      *
-     * @var PdoAdapter|null
+     * @var PdoConnector|null
      */
-    private static ?PdoAdapter $self = null;
+    private static ?PdoConnector $self = null;
 
     /**
      * Instance of the PDO connection.
@@ -62,9 +62,9 @@ class PdoAdapter implements DatabaseAdapterInterface
      * @param string|null $password
      * @param string|null $port
      *
-     * @return DatabaseAdapterInterface
+     * @return DatabaseConnectorInterface
      */
-    public static function getInstance(string $host = null, string $name = null, string $user = null, string $password = null, string $port = null) : DatabaseAdapterInterface
+    public static function getInstance(string $host = null, string $name = null, string $user = null, string $password = null, string $port = null) : DatabaseConnectorInterface
     {
 
         // If we are connecting to a new DB or this is the first time connecting,

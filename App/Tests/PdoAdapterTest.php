@@ -2,19 +2,19 @@
 
 namespace App\Tests;
 
-use App\Database\PdoAdapter;
+use App\Database\PdoConnector;
 use App\Config;
 
-final class PdoAdapterTest extends BaseTest
+final class PdoConnectorTest extends BaseTest
 {
     /**
-     * Test that getInstance() returns the same instance of the PdoAdapter.
+     * Test that getInstance() returns the same instance of the PdoConnector.
      *
      * @return bool
      */
     public function test_getInstance_returns_same_instance()
     {
-        return PdoAdapter::getInstance() === PdoAdapter::getInstance();
+        return PdoConnector::getInstance() === PdoConnector::getInstance();
     }
 
     /**
@@ -25,7 +25,7 @@ final class PdoAdapterTest extends BaseTest
      */
     public function test_getInstance_returns_different_instances_with_different_db_info()
     {
-        $first_instance = PdoAdapter::getInstance(
+        $first_instance = PdoConnector::getInstance(
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
@@ -33,7 +33,7 @@ final class PdoAdapterTest extends BaseTest
             Config::get('DB_PORT')
         );
 
-        $second_instance = PdoAdapter::getInstance(
+        $second_instance = PdoConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -52,7 +52,7 @@ final class PdoAdapterTest extends BaseTest
      */
     public function test_getInstance_returns_same_instance_after_creating_a_new_instance()
     {
-        $first_instance = PdoAdapter::getInstance(
+        $first_instance = PdoConnector::getInstance(
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
@@ -60,7 +60,7 @@ final class PdoAdapterTest extends BaseTest
             Config::get('DB_PORT')
         );
 
-        $second_instance = PdoAdapter::getInstance(
+        $second_instance = PdoConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -68,7 +68,7 @@ final class PdoAdapterTest extends BaseTest
             Config::get('TEST_DB_PORT')
         );
 
-        $third_instance = PdoAdapter::getInstance();
+        $third_instance = PdoConnector::getInstance();
 
         return $second_instance === $third_instance;
     }
@@ -80,7 +80,7 @@ final class PdoAdapterTest extends BaseTest
      */
     public function test_query_returns_query_results()
     {
-        $this->database_adapter = PdoAdapter::getInstance(
+        $this->database_connector = PdoConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -92,12 +92,12 @@ final class PdoAdapterTest extends BaseTest
         $column_name = 'test_name';
         $row_value = 'test value';
 
-        $this->database_adapter->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
-        $this->database_adapter->execute("INSERT INTO `$table_name` (`$column_name`) VALUES ('$row_value')");
+        $this->database_connector->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
+        $this->database_connector->execute("INSERT INTO `$table_name` (`$column_name`) VALUES ('$row_value')");
 
-        $query_results = $this->database_adapter->query("SELECT * FROM `$table_name`");
+        $query_results = $this->database_connector->query("SELECT * FROM `$table_name`");
 
-        $this->database_adapter->execute("DROP TABLE `$table_name`");
+        $this->database_connector->execute("DROP TABLE `$table_name`");
 
         return
             (count($query_results) === 1) &&
@@ -113,7 +113,7 @@ final class PdoAdapterTest extends BaseTest
      */
     public function test_execute_executes_query()
     {
-        $this->database_adapter = PdoAdapter::getInstance(
+        $this->database_connector = PdoConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -124,11 +124,11 @@ final class PdoAdapterTest extends BaseTest
         $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
 
-        $this->database_adapter->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
+        $this->database_connector->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
 
-        $db_tables = $this->database_adapter->query('SHOW TABLES');
+        $db_tables = $this->database_connector->query('SHOW TABLES');
 
-        $this->database_adapter->execute("DROP TABLE `$table_name`");
+        $this->database_connector->execute("DROP TABLE `$table_name`");
 
         return
             (count($db_tables) === 1) &&

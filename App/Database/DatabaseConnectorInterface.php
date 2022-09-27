@@ -2,7 +2,7 @@
 
 namespace App\Database;
 
-interface DatabaseAdapterInterface
+interface DatabaseConnectorInterface
 {
     /**
      * Singleton to ensure we always use the same instance of this interface.
@@ -12,9 +12,9 @@ interface DatabaseAdapterInterface
      * @param string|null $db_user
      * @param string|null $db_password
      *
-     * @return DatabaseAdapterInterface
+     * @return DatabaseConnectorInterface
      */
-    public static function getInstance(?string $db_host = null, ?string $db_name = null, ?string $db_user = null, ?string $db_password = null) : DatabaseAdapterInterface;
+    public static function getInstance(?string $db_host = null, ?string $db_name = null, ?string $db_user = null, ?string $db_password = null) : DatabaseConnectorInterface;
 
     /**
      * Run a query and get the results.
