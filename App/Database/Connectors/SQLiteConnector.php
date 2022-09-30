@@ -67,7 +67,7 @@ class SQLiteConnector implements DatabaseConnector
 
         $results = [];
 
-        while ($row = $statement->fetchArray()) {
+        while ($row = $statement->fetchArray(SQLITE3_ASSOC)) {
             $results[] = $row;
         }
 
