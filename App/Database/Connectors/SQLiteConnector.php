@@ -45,7 +45,7 @@ class SQLiteConnector implements DatabaseConnector
             $database_connector_config->name = Config::get('SQLITE_DB_NAME');
         }
 
-        if (is_null($self)) {
+        if (!is_null($database_connector_config)) {
             $self = new self;
 
             $self->setSQLite3($database_connector_config->get('name'));

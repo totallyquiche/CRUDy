@@ -69,7 +69,7 @@ class MySqlConnector implements DatabaseConnector
             $database_connector_config->port = Config::get('MYSQL_DB_PORT');
         }
 
-        if (is_null($self)) {
+        if (!is_null($database_connector_config)) {
             $self = new self;
 
             $self->setPdo(
