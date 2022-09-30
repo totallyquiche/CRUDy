@@ -4,7 +4,7 @@ namespace App\Tests;
 
 use App\Models\BaseModel;
 use App\Database\DatabaseConnectorInterface;
-use App\Database\PdoConnector;
+use App\Database\MySqlConnector;
 use \ReflectionObject;
 use App\Config;
 
@@ -40,7 +40,7 @@ final class BaseModelTest extends BaseTest
     {
         $this->table_name = 'base_model' . '_' . str_replace('.', '_', (string) microtime(true));
 
-        $this->database_connector = PdoConnector::getInstance(
+        $this->database_connector = MySqlConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),

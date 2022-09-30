@@ -6,14 +6,14 @@ use App\Config;
 use \PDO;
 use \PDOException;
 
-class PdoConnector implements DatabaseConnectorInterface
+class MySqlConnector implements DatabaseConnectorInterface
 {
     /**
      * Instance of this class.
      *
-     * @var PdoConnector|null
+     * @var MySqlConnector|null
      */
-    private static ?PdoConnector $self = null;
+    private static ?MySqlConnector $self = null;
 
     /**
      * Instance of the PDO connection.

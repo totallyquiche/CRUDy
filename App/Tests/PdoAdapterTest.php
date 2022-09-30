@@ -2,19 +2,19 @@
 
 namespace App\Tests;
 
-use App\Database\PdoConnector;
+use App\Database\MySqlConnector;
 use App\Config;
 
-final class PdoConnectorTest extends BaseTest
+final class MySqlConnectorTest extends BaseTest
 {
     /**
-     * Test that getInstance() returns the same instance of the PdoConnector.
+     * Test that getInstance() returns the same instance of the MySqlConnector.
      *
      * @return bool
      */
     public function test_getInstance_returns_same_instance()
     {
-        return PdoConnector::getInstance() === PdoConnector::getInstance();
+        return MySqlConnector::getInstance() === MySqlConnector::getInstance();
     }
 
     /**
@@ -25,7 +25,7 @@ final class PdoConnectorTest extends BaseTest
      */
     public function test_getInstance_returns_different_instances_with_different_db_info()
     {
-        $first_instance = PdoConnector::getInstance(
+        $first_instance = MySqlConnector::getInstance(
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
@@ -33,7 +33,7 @@ final class PdoConnectorTest extends BaseTest
             Config::get('DB_PORT')
         );
 
-        $second_instance = PdoConnector::getInstance(
+        $second_instance = MySqlConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -52,7 +52,7 @@ final class PdoConnectorTest extends BaseTest
      */
     public function test_getInstance_returns_same_instance_after_creating_a_new_instance()
     {
-        $first_instance = PdoConnector::getInstance(
+        $first_instance = MySqlConnector::getInstance(
             Config::get('DB_HOST'),
             Config::get('DB_NAME'),
             Config::get('DB_USER'),
@@ -60,7 +60,7 @@ final class PdoConnectorTest extends BaseTest
             Config::get('DB_PORT')
         );
 
-        $second_instance = PdoConnector::getInstance(
+        $second_instance = MySqlConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -68,7 +68,7 @@ final class PdoConnectorTest extends BaseTest
             Config::get('TEST_DB_PORT')
         );
 
-        $third_instance = PdoConnector::getInstance();
+        $third_instance = MySqlConnector::getInstance();
 
         return $second_instance === $third_instance;
     }
@@ -80,7 +80,7 @@ final class PdoConnectorTest extends BaseTest
      */
     public function test_query_returns_query_results()
     {
-        $this->database_connector = PdoConnector::getInstance(
+        $this->database_connector = MySqlConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
@@ -113,7 +113,7 @@ final class PdoConnectorTest extends BaseTest
      */
     public function test_execute_executes_query()
     {
-        $this->database_connector = PdoConnector::getInstance(
+        $this->database_connector = MySqlConnector::getInstance(
             Config::get('TEST_DB_HOST'),
             Config::get('TEST_DB_NAME'),
             Config::get('TEST_DB_USER'),
