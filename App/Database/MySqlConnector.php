@@ -62,9 +62,15 @@ class MySqlConnector implements DatabaseConnectorInterface
      * @param string|null $password
      * @param string|null $port
      *
-     * @return DatabaseConnectorInterface
+     * @return MySqlConnector
      */
-    public static function getInstance(string $host = null, string $name = null, string $user = null, string $password = null, string $port = null) : DatabaseConnectorInterface
+    public static function getInstance(
+        string $host = null,
+        string $name = null,
+        string $user = null,
+        string $password = null,
+        string $port = null
+    ) : MySqlConnector
     {
 
         // If we are connecting to a new DB or this is the first time connecting,
