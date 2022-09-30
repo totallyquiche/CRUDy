@@ -12,14 +12,14 @@ interface DatabaseConnectorInterface
      * @param string|null $db_user
      * @param string|null $db_password
      *
-     * @return DatabaseConnectorInterface
+     * @return self
      */
     public static function getInstance(
         ?string $db_host = null,
         ?string $db_name = null,
         ?string $db_user = null,
         ?string $db_password = null
-    ) : DatabaseConnectorInterface;
+    ) : self;
 
     /**
      * Run a query and get the results.
