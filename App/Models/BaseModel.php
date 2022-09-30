@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Database\DatabaseConnectorInterface;
+use App\Database\Connectors\DatabaseConnector;
 
 abstract class BaseModel
 {
@@ -23,18 +23,18 @@ abstract class BaseModel
     /**
      * Database connection.
      *
-     * @param DatabaseConnectorInterface|null
+     * @param DatabaseConnector|null
      */
-    protected ?DatabaseConnectorInterface $database_connector;
+    protected ?DatabaseConnector $database_connector;
 
     /**
      * Instantiate the model with a database adapter.
      *
-     * @param DatabaseConnectorInterface $database_connector
+     * @param DatabaseConnector $database_connector
      *
      * @return void
      */
-    public function __construct(DatabaseConnectorInterface $database_connector)
+    public function __construct(DatabaseConnector $database_connector)
     {
         $this->database_connector = $database_connector;
     }

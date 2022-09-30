@@ -3,8 +3,9 @@
 namespace App\Tests;
 
 use App\Models\BaseModel;
-use App\Database\DatabaseConnectorInterface;
-use App\Database\MySqlConnector;
+use App\Database\Connectors\DatabaseConnector;
+use App\Database\Connectors\MySqlConnector;
+use App\Database\Configs\MySqlConnectorConfig;
 use \ReflectionObject;
 use App\Config;
 
@@ -27,9 +28,9 @@ final class BaseModelTest extends BaseTest
     /**
      * Database connector for these tests.
      *
-     * @var DatabaseConnectorInterface
+     * @var DatabaseConnector
      */
-    private DatabaseConnectorInterface $database_connector;
+    private DatabaseConnector $database_connector;
 
     /**
      * Creates a database to use for these tests.
@@ -40,12 +41,15 @@ final class BaseModelTest extends BaseTest
     {
         $this->table_name = 'base_model' . '_' . str_replace('.', '_', (string) microtime(true));
 
-        $this->database_connector = MySqlConnector::getInstance(
-            Config::get('TEST_DB_HOST'),
-            Config::get('TEST_DB_NAME'),
-            Config::get('TEST_DB_USER'),
-            Config::get('TEST_DB_PASSWORD')
-        );
+        $database_connector_config = new MySqlConnectorConfig();
+
+        $database_connector_config->host = Config::get('MYSQL_TEST_DB_HOST');
+        $database_connector_config->name = Config::get('MYSQL_TEST_DB_NAME');
+        $database_connector_config->user = Config::get('MYSQL_TEST_DB_USER');
+        $database_connector_config->password = Config::get('MYSQL_TEST_DB_PASSWORD');
+        $database_connector_config->port = Config::get('MYSQL_TEST_DB_PORT');
+
+        $this->database_connector = MySqlConnector::getInstance($database_connector_config);
 
         $this->createTable($this->database_connector);
         $this->seedTable($this->database_connector);
@@ -111,11 +115,11 @@ final class BaseModelTest extends BaseTest
     /**
      * Get a mock of BaseModel.
      *
-     * @param DatabaseConnectorInterface $database_connector
+     * @param DatabaseConnector $database_connector
      *
      * @return BaseModel
      */
-    private function getBaseModelMock(DatabaseConnectorInterface $database_connector) : BaseModel
+    private function getBaseModelMock(DatabaseConnector $database_connector) : BaseModel
     {
         $class_name = 'BaseModelMock_' . str_replace('.', '_', (string) microtime(true));
 
@@ -138,11 +142,11 @@ final class BaseModelTest extends BaseTest
     /**
      * Drop the database table.
      *
-     * @pararm DatabaseConnectorInterface $database_connector
+     * @pararm DatabaseConnector $database_connector
      *
      * @return void
      */
-    private function dropTable(DatabaseConnectorInterface $database_connector) : void
+    private function dropTable(DatabaseConnector $database_connector) : void
     {
         $this->database_connector->execute(
             "DROP TABLE `$this->table_name`",
@@ -153,11 +157,11 @@ final class BaseModelTest extends BaseTest
     /**
      * Create the database table.
      *
-     * @param DatabaseConnectorInterface $database_connector
+     * @param DatabaseConnector $database_connector
      *
      * @return void
      */
-    private function createTable(DatabaseConnectorInterface $database_connector) : void
+    private function createTable(DatabaseConnector $database_connector) : void
     {
         $this->database_connector->execute(
             "CREATE TABLE `$this->table_name`(`$this->primary_key` INT(11) AUTO_INCREMENT PRIMARY KEY, `name` VARCHAR(10) NOT NULL)"
@@ -167,11 +171,11 @@ final class BaseModelTest extends BaseTest
     /**
      * Seed the database table.
      *
-     * @param DatabaseConnectorInterface $database_connector
+     * @param DatabaseConnector $database_connector
      *
      * @return void
      */
-    private function seedTable(DatabaseConnectorInterface $database_connector) : void
+    private function seedTable(DatabaseConnector $database_connector) : void
     {
         $database_connector->execute("INSERT INTO `$this->table_name` VALUES(null, 'test1')");
         $database_connector->execute("INSERT INTO `$this->table_name` VALUES(null, 'test2')");

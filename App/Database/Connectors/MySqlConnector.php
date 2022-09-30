@@ -1,20 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace App\Database;
+namespace App\Database\Connectors;
 
 use App\Config;
+use App\Database\Configs\DatabaseConnectorConfig;
+use App\Database\Configs\MySqlConnectorConfig;
 use \PDO;
 use \PDOException;
 
-class MySqlConnector implements DatabaseConnectorInterface
+class MySqlConnector implements DatabaseConnector
 {
-    /**
-     * Instance of this class.
-     *
-     * @var MySqlConnector|null
-     */
-    private static ?MySqlConnector $self = null;
-
     /**
      * Instance of the PDO connection.
      *
@@ -56,41 +51,37 @@ class MySqlConnector implements DatabaseConnectorInterface
     /**
      * Singleton to ensure we always use the same instance of this class.
      *
-     * @param string|null $host
-     * @param string|null $name
-     * @param string|null $user
-     * @param string|null $password
-     * @param string|null $port
+     * @param null|DatabaseConnectorConfig $database_connector_config
      *
-     * @return MySqlConnector
+     * @return self
      */
-    public static function getInstance(
-        string $host = null,
-        string $name = null,
-        string $user = null,
-        string $password = null,
-        string $port = null
-    ) : MySqlConnector
+    public static function getInstance(?DatabaseConnectorConfig $database_connector_config = null) : self
     {
+        static $self = null;
 
-        // If we are connecting to a new DB or this is the first time connecting,
-        // create a new connection.
-        if (
-            ($host && $name && $user && $password) ||
-            is_null(self::$self)
-        ) {
-            self::$self = new self;
+        if (is_null($self) && is_null($database_connector_config)) {
+            $database_connector_config = new MySqlConnectorConfig();
 
-            self::$self->setPdo(
-                $host ?? Config::get('DB_HOST'),
-                $name ?? Config::get('DB_NAME'),
-                $user ?? Config::get('DB_USER'),
-                $password ?? Config::get('DB_PASSWORD'),
-                $port ?? Config::get('DB_PORT')
+            $database_connector_config->host = Config::get('MYSQL_DB_HOST');
+            $database_connector_config->name = Config::get('MYSQL_DB_NAME');
+            $database_connector_config->user = Config::get('MYSQL_DB_USER');
+            $database_connector_config->password = Config::get('MYSQL_DB_PASSWORD');
+            $database_connector_config->port = Config::get('MYSQL_DB_PORT');
+        }
+
+        if (is_null($self)) {
+            $self = new self;
+
+            $self->setPdo(
+                $database_connector_config->get('host'),
+                $database_connector_config->get('name'),
+                $database_connector_config->get('user'),
+                $database_connector_config->get('password'),
+                $database_connector_config->get('port')
             );
         }
 
-        return self::$self;
+        return $self;
     }
 
     /**

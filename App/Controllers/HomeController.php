@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Database\Connectors\SQLiteConnector;
+use App\Config;
+
 class HomeController extends BaseController
 {
     /**

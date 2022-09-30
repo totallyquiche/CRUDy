@@ -1,25 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace App\Database;
+namespace App\Database\Connectors;
 
-interface DatabaseConnectorInterface
+use App\Database\Configs\DatabaseConnectorConfig;
+
+interface DatabaseConnector
 {
     /**
      * Singleton to ensure we always use the same instance of this interface.
      *
-     * @param string|null $db_host
-     * @param string|null $db_name
-     * @param string|null $db_user
-     * @param string|null $db_password
+     * @param null|DatabaseConnectorConfig
      *
      * @return self
      */
-    public static function getInstance(
-        ?string $db_host = null,
-        ?string $db_name = null,
-        ?string $db_user = null,
-        ?string $db_password = null
-    ) : self;
+    public static function getInstance(?DatabaseConnectorConfig $database_connector_config = null) : self;
 
     /**
      * Run a query and get the results.
