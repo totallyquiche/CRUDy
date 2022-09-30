@@ -15,7 +15,7 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 ## Features
 - Autoloading
 - Page caching
-- Custom environment variables (.env)
+- Environment variables (.env)
 - Database Abstraction Layer (DBAL)
 - MVC architecture
 - Routing
