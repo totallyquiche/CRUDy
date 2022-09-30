@@ -16,7 +16,7 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 - Autoloading
 - Page caching
 - Custom environment variables (.env)
-- Database connection abstraction
+- Database Abstraction Layer (DBAL)
 - MVC architecture
 - Routing
 - Templates
