@@ -68,13 +68,13 @@ final class BaseModelTest extends BaseTest
     }
 
     /**
-     * Test constructor sets the database adapter.
+     * Test constructor sets the database connector.
      *
      * @return bool
      */
     public function test_constructor_set_database_connector() : bool
     {
-        $pdo_adapter = $this->database_connector;
+        $pdo_connector = $this->database_connector;
 
         $mock = $this->getBaseModelMock($this->database_connector);
 
@@ -83,7 +83,7 @@ final class BaseModelTest extends BaseTest
         $database_connector_property->setAccessible(true);
         $database_connector = $database_connector_property->getValue($mock);
 
-        return $pdo_adapter === $database_connector;
+        return $pdo_connector === $database_connector;
     }
 
     /**

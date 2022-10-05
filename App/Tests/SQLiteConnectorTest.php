@@ -142,7 +142,7 @@ final class SqliteConnectorTest extends BaseTest
         $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
+        $table_name = 'pdo_connector_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
         $row_value = 'test value';
 
@@ -171,7 +171,7 @@ final class SqliteConnectorTest extends BaseTest
         $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
+        $table_name = 'pdo_connector_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
 
         $sqlite_connector->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");

@@ -30,7 +30,7 @@ abstract class BaseModel
     protected ?DatabaseConnector $database_connector;
 
     /**
-     * Instantiate the model with a database adapter.
+     * Instantiate the model with a database connector.
      *
      * @param DatabaseConnector $database_connector
      *

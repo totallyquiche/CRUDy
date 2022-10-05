@@ -94,7 +94,7 @@ final class MySqlConnectorTest extends BaseTest
 
         $mysql_connector = MySqlConnector::getInstance($mysql_connector_config);
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
+        $table_name = 'pdo_connector_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
         $row_value = 'test value';
 
@@ -129,7 +129,7 @@ final class MySqlConnectorTest extends BaseTest
 
         $mysql_connector = MySqlConnector::getInstance($mysql_connector_config);
 
-        $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
+        $table_name = 'pdo_connector_test_' . str_replace('.', '_', (string) microtime(true));
         $column_name = 'test_name';
 
         $mysql_connector->execute("CREATE TABLE `$table_name` (`$column_name` VARCHAR(10) NOT NULL)");
