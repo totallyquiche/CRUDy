@@ -19,11 +19,10 @@ abstract class BaseController
     protected function loadView(string $view_name, array $args = []) : string
     {
         $cache_file_path = __DIR__ . '/../Views/Cache/' . $view_name . '.cache.php';
-        $cache_file_mod_time = filemtime($cache_file_path);
 
         if (
             !is_readable($cache_file_path) ||
-            ($cache_file_mod_time + Config::get('VIEW_CACHE_SECONDS_TO_EXPIRY')) <= time()
+            (filemtime($cache_file_path) + Config::get('VIEW_CACHE_SECONDS_TO_EXPIRY')) <= time()
         ) {
             foreach ($args as $key => $value) {
                 $$key = is_callable($value) ? $value() : $value;
