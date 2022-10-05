@@ -11,17 +11,52 @@ use App\Config;
 final class SqliteConnectorTest extends BaseTest
 {
     /**
+     * @var string
+     */
+    private string $db_name;
+
+    /**
+     * @var bool
+     */
+    private bool $db_in_memory;
+
+    /**
+     * @var string
+     */
+    private string $test_db_name;
+
+    /**
+     * @var bool
+     */
+    private bool $test_db_in_memory;
+
+    /**
      * Run the tests, performing setup and teardown steps.
      *
      * @return void
      */
     public function run() : string
     {
+        $this->setup();
+
         $results = parent::run();
 
         $this->teardown();
 
         return $results;
+    }
+
+    /**
+     * Set constants from config.
+     *
+     * @return void
+     */
+    private function setup() : void
+    {
+        $this->db_name = Config::get('SQLITE_DB_NAME');
+        $this->db_in_memory = (strtolower(Config::get('SQLITE_IN_MEMORY')) === 'true');
+        $this->test_db_name = Config::get('SQLITE_TEST_DB_NAME');
+        $this->test_db_in_memory = (strtolower(Config::get('SQLITE_TEST_IN_MEMORY')) === 'true');
     }
 
     /**
@@ -32,8 +67,8 @@ final class SqliteConnectorTest extends BaseTest
     private function teardown() : void
     {
         $db_files = [
-            Config::get('SQLITE_DB_NAME'),
-            Config::get('SQLITE_TEST_DB_NAME'),
+            $this->db_name,
+            $this->test_db_name,
         ];
 
         foreach ($db_files as $db_file) {
@@ -62,11 +97,13 @@ final class SqliteConnectorTest extends BaseTest
     public function test_getInstance_returns_different_instances_with_different_db_info()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_DB_NAME');
+        $sqlite_connector_config->db_name = $this->db_name;
+        $sqlite_connector_config->in_memory = $this->db_in_memory;
         $first_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
+        $sqlite_connector_config->db_name = $this->test_db_name;
+        $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $second_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         return $first_instance !== $second_instance;
@@ -84,7 +121,8 @@ final class SqliteConnectorTest extends BaseTest
         SqliteConnector::getInstance();
 
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
+        $sqlite_connector_config->db_name = $this->test_db_name;
+        $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $second_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         $third_instance = SqliteConnector::getInstance();
@@ -100,7 +138,8 @@ final class SqliteConnectorTest extends BaseTest
     public function test_query_returns_query_results()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
+        $sqlite_connector_config->db_name = $this->test_db_name;
+        $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
         $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
@@ -128,7 +167,8 @@ final class SqliteConnectorTest extends BaseTest
     public function test_execute_executes_query()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
+        $sqlite_connector_config->db_name = $this->test_db_name;
+        $sqlite_connector_config->in_memory = $this->test_db_in_memory;
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
         $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));

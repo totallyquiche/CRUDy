@@ -20,7 +20,8 @@ final class SqliteConnector extends PdoConnector
      */
     protected function generateDsn(DatabaseConnectorConfig $database_connector_config) : string
     {
-        return 'sqlite:' . ($database_connector_config->name ?? ':memory:');
+        return 'sqlite:' .
+            ($database_connector_config->in_memory ? ':memory:' : $database_connector_config->db_name);
     }
 
     /**
@@ -32,7 +33,8 @@ final class SqliteConnector extends PdoConnector
     {
         $database_connector_config = new SqliteConnectorConfig();
 
-        $database_connector_config->name = Config::get('SQLITE_DB_NAME');
+        $database_connector_config->db_name = Config::get('SQLITE_DB_NAME');
+        $database_connector_config->in_memory = (Config::get('SQLITE_DB_IN_MEMORY') === 'true');
 
         return $database_connector_config;
     }

@@ -8,5 +8,10 @@ final class SqliteConnectorConfig extends DatabaseConnectorConfig {
     /**
      * @var string
      */
-    public string $name;
+    public string $db_name;
+
+    /**
+     * @var bool
+     */
+    public bool $in_memory;
 }
