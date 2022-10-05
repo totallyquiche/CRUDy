@@ -7,9 +7,7 @@ namespace App;
 require_once(__DIR__ . '/bootstrap.php');
 
 (function () {
-    $routes = [
-        '/' => 'HomeController::index'
-    ];
+    require_once(__DIR__ . '/routes.php');
 
     $router = new Router;
 
