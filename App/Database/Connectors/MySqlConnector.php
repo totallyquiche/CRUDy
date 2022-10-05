@@ -1,118 +1,47 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Database\Connectors;
 
-use App\Config;
+use App\Database\Connectors\PdoConnector;
 use App\Database\Configs\DatabaseConnectorConfig;
 use App\Database\Configs\MySqlConnectorConfig;
-use \PDO;
-use \PDOException;
+use App\Config;
 
-class MySqlConnector implements DatabaseConnector
+final class MySqlConnector extends PdoConnector
 {
     /**
-     * Instance of the PDO connection.
+     * Generate the DSN for connecting to the MySQL database.
      *
-     * @var PDO
+     * @param DatabaseConnectorConfig $database_connector_config
+     *
+     * @return string
      */
-    private PDO $pdo;
-
-    /**
-     * Sets the Pdo instance. Defaults to using the DB info in the app config.
-     *
-     * @param string $host
-     * @param string $name
-     * @param string $user
-     * @param string $password
-     * @param string $port
-     *
-     * @return void
-     */
-    private function setPdo(string $host, string $name, string $user, string $password, string $port)
+    protected function generateDsn(DatabaseConnectorConfig $database_connector_config) : string
     {
-        $dsn = "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
+        $host = $database_connector_config->host;
+        $port = $database_connector_config->port;
+        $name = $database_connector_config->name;
 
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false
-        ];
-
-        try {
-            $this->pdo = new PDO($dsn, $user, $password, $options);
-       } catch (PDOException $exception) {
-            throw new PDOException(
-                $exception->getMessage(),
-                (int) $exception->getCode()
-            );
-       }
+        return "mysql:host=$host;port=$port;dbname=$name;charset=utf8mb4";
     }
 
     /**
-     * Singleton to ensure we always use the same instance of this class.
+     * Returns a MySqlConnectorConfig to use for setting up a PDO instance.
      *
-     * @param null|DatabaseConnectorConfig $database_connector_config
-     *
-     * @return self
+     * @return DatabaseConnectorConfig
      */
-    public static function getInstance(?DatabaseConnectorConfig $database_connector_config = null) : self
+    public static function generateConnectorConfig(): DatabaseConnectorConfig
     {
-        static $self = null;
+        $database_connector_config = new MySqlConnectorConfig();
 
-        if (is_null($self) && is_null($database_connector_config)) {
-            $database_connector_config = new MySqlConnectorConfig();
+        $database_connector_config->host = Config::get('MYSQL_DB_HOST');
+        $database_connector_config->name = Config::get('MYSQL_DB_NAME');
+        $database_connector_config->user = Config::get('MYSQL_DB_USER');
+        $database_connector_config->password = Config::get('MYSQL_DB_PASSWORD');
+        $database_connector_config->port = Config::get('MYSQL_DB_PORT');
 
-            $database_connector_config->host = Config::get('MYSQL_DB_HOST');
-            $database_connector_config->name = Config::get('MYSQL_DB_NAME');
-            $database_connector_config->user = Config::get('MYSQL_DB_USER');
-            $database_connector_config->password = Config::get('MYSQL_DB_PASSWORD');
-            $database_connector_config->port = Config::get('MYSQL_DB_PORT');
-        }
-
-        if (!is_null($database_connector_config)) {
-            $self = new self;
-
-            $self->setPdo(
-                $database_connector_config->get('host'),
-                $database_connector_config->get('name'),
-                $database_connector_config->get('user'),
-                $database_connector_config->get('password'),
-                $database_connector_config->get('port')
-            );
-        }
-
-        return $self;
-    }
-
-    /**
-     * Wrapper for PDO::query().
-     *
-     * @param string $query
-     *
-     * @return array
-     */
-    public function query(string $query) : array
-    {
-        $statement = $this->pdo->query($query);
-
-        $results = [];
-
-        while ($row = $statement->fetch()) {
-            $results[] = $row;
-        }
-
-        return $results;
-    }
-
-    /**
-     * Wrapper for PDO::execute().
-     *
-     * @param string $query
-     *
-     * @return void
-     */
-    public function execute(string $query) : void
-    {
-        $this->pdo->exec($query);
+        return $database_connector_config;
     }
 }

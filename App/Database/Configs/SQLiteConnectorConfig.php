@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Database\Configs;
 
-final class SQLiteConnectorConfig extends DatabaseConnectorConfig {
+final class SqliteConnectorConfig extends DatabaseConnectorConfig {
     /**
      * @var string
      */

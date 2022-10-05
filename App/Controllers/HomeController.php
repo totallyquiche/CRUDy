@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Database\Connectors\SQLiteConnector;
+use App\Database\Connectors\SqliteConnector;
 use App\Config;
 
 class HomeController extends BaseController

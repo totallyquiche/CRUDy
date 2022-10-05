@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Database\Connectors;
 
@@ -7,13 +9,20 @@ use App\Database\Configs\DatabaseConnectorConfig;
 interface DatabaseConnector
 {
     /**
+     * Generate an instance of DatabaseConnectorConfig for the connector.
+     *
+     * @return DatabaseConnectorConfig
+     */
+    public static function generateConnectorConfig() : DatabaseConnectorConfig;
+
+    /**
      * Singleton to ensure we always use the same instance of this interface.
      *
-     * @param null|DatabaseConnectorConfig
+     * @param DatabaseConnectorConfig|null
      *
      * @return self
      */
-    public static function getInstance(?DatabaseConnectorConfig $database_connector_config = null) : self;
+    public static function getInstance(DatabaseConnectorConfig $database_connector_config = null) : self;
 
     /**
      * Run a query and get the results.

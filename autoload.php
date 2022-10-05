@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 spl_autoload_register(function ($class_name) {
     $file_path = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
