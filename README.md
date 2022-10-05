@@ -8,7 +8,7 @@ CRUDy is a proof-of-concept PHP framework with no dependencies.
 
 For fun, of course! In this case, "fun" and "education" are pretty closely tied. CRUDy is helping me hone my PHP skills and understand more about the concepts larger PHP frameworks are built on.
 
-CRUDy is _not_ meant to be used in production. I'm not doing anything here that hasn't been done a million times (and a million times better) by other engineers. If you're looking for a lightweight PHP framework to use in the real world, check out [Slim](https://www.slimframework.com/) or [Lumen](https://lumen.laravel.com/).
+CRUDy is _not_ meant to be used in production. CRUDy development starts with the naive approach instead of with existing standards (e.g. PSR). I then develop these implementations over time as I learn the pros and cons of different patterns. Compatibility, performance, and even security are not priorities and cannot be guaranteed.
 
 Feedback is still welcome! You can even open up a Pull Request if you'd like. :smile:
 
