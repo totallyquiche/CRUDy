@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once(__DIR__ . '/bootstrap.php');
+namespace App;
 
-use App\Router;
+require_once(__DIR__ . '/bootstrap.php');
 
 (function () {
     $routes = [
