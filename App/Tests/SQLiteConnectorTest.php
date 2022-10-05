@@ -32,8 +32,8 @@ final class SqliteConnectorTest extends BaseTest
     private function teardown() : void
     {
         $db_files = [
-            Config::get('SQLITE_FILE_NAME'),
-            Config::get('SQLITE_TEST_FILE_NAME'),
+            Config::get('SQLITE_DB_NAME'),
+            Config::get('SQLITE_TEST_DB_NAME'),
         ];
 
         foreach ($db_files as $db_file) {
@@ -62,11 +62,11 @@ final class SqliteConnectorTest extends BaseTest
     public function test_getInstance_returns_different_instances_with_different_db_info()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_FILE_NAME');
+        $sqlite_connector_config->name = Config::get('SQLITE_DB_NAME');
         $first_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_FILE_NAME');
+        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
         $second_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         return $first_instance !== $second_instance;
@@ -84,7 +84,7 @@ final class SqliteConnectorTest extends BaseTest
         SqliteConnector::getInstance();
 
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_FILE_NAME');
+        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
         $second_instance = SqliteConnector::getInstance($sqlite_connector_config);
 
         $third_instance = SqliteConnector::getInstance();
@@ -100,7 +100,7 @@ final class SqliteConnectorTest extends BaseTest
     public function test_query_returns_query_results()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_FILE_NAME');
+        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
         $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));
@@ -128,7 +128,7 @@ final class SqliteConnectorTest extends BaseTest
     public function test_execute_executes_query()
     {
         $sqlite_connector_config = new SqliteConnectorConfig();
-        $sqlite_connector_config->name = Config::get('SQLITE_TEST_FILE_NAME');
+        $sqlite_connector_config->name = Config::get('SQLITE_TEST_DB_NAME');
         $sqlite_connector = SqliteConnector::getInstance($sqlite_connector_config);
 
         $table_name = 'pdo_adapter_test_' . str_replace('.', '_', (string) microtime(true));

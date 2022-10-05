@@ -32,7 +32,7 @@ final class SqliteConnector extends PdoConnector
     {
         $database_connector_config = new SqliteConnectorConfig();
 
-        $database_connector_config->name = Config::get('SQLITE_FILE_NAME');
+        $database_connector_config->name = Config::get('SQLITE_DB_NAME');
 
         return $database_connector_config;
     }
