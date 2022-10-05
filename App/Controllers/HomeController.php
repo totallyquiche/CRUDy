@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Database\Connectors\SqliteConnector;
-use App\Config;
-
 class HomeController extends BaseController
 {
     /**
