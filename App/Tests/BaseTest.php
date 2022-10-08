@@ -18,7 +18,7 @@ abstract class BaseTest
         $failed_tests = [];
 
         foreach ((new ReflectionClass(static::class))->getMethods() as $method) {
-            if (strpos($method->name, 'test_') === 0) {
+            if (str_starts_with($method->name, 'test_')) {
                 if (!$this->{$method->name}()) {
                     $failed_tests[] = $method->name;
                 }
