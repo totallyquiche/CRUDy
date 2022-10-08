@@ -5,15 +5,22 @@ declare(strict_types=1);
 namespace App;
 
 use App\Controllers\HttpController;
+use App\Views\ViewRenderer;
 
 class Router
 {
     /**
-     * Route registrar.
+     * Handle initialization.
      *
-     * @var array
+     * @param array        $routes
+     * @param ViewRenderer $view_renderer
+     *
+     * @return void
      */
-    private array $routes = [];
+    public function __construct(
+        private array $routes,
+        private ViewRenderer $view_renderer
+    ) {}
 
     /**
      * Register a route.
@@ -47,11 +54,13 @@ class Router
                 return $method();
             }
 
-            list($controller, $method) = explode('::', $this->routes[$route]);
+            list($controller_name, $method) = explode('::', $this->routes[$route]);
 
-            $class = 'App\\Controllers\\' . $controller;
+            $controller_class = 'App\\Controllers\\' . $controller_name;
+            $controller = new $controller_class;
+            $controller->setViewRenderer($this->view_renderer);
 
-            return (new $class)->$method();
+            return $controller->$method();
         }
 
         return (new HttpController)->http404();

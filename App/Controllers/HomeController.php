@@ -13,6 +13,6 @@ class HomeController extends BaseController
      */
     public function index() : string
     {
-        return $this->loadView('home');
+        return $this->renderView('home');
     }
 }

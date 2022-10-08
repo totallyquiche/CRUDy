@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App;
 
-class Config
+final class Config
 {
     /**
      * An array of config options/values for the application.
      *
      * @var array
      */
-    private static array $config_options = [];
+    private array $config_options = [];
 
     /**
      * Load config options/values from the specified path.
@@ -20,7 +20,7 @@ class Config
      *
      * @return void
      */
-    public static function load(string $config_file_path) : void
+    public function load(string $config_file_path) : void
     {
         if ($config_option_strings = file($config_file_path)) {
             foreach ($config_option_strings as $config_option_string) {
@@ -30,7 +30,7 @@ class Config
                     list($key, $value) = $config_option_parts;
 
                     if (!is_null($key) && !is_null($value)) {
-                        self::$config_options[trim($key)] = trim($value);
+                        $this->config_options[trim($key)] = trim($value);
                     }
                 }
             }
@@ -44,8 +44,8 @@ class Config
      *
      * @return null|string
      */
-    public static function get(string $config_name) : ?string
+    public function get(string $config_name) : ?string
     {
-        return self::$config_options[$config_name] ?? null;
+        return $this->config_options[$config_name] ?? null;
     }
 }

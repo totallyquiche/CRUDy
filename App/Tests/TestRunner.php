@@ -4,11 +4,25 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Config;
+use App\Database\Connectors\DatabaseConnector;
 use App\Tests\BaseTest;
+use App\Tests\Factories\BaseTestFactory;
 
 final class TestRunner
 {
     /**
+     * Handle instantiation.
+     *
+     * @param DatabaseConnector $database_connector
+     *
+     * @return void
+     */
+    public function __construct(
+        private Config $config,
+        private DatabaseConnector $database_connector
+    ) {}
+
     /**
      * Run all tests.
      *
@@ -20,9 +34,11 @@ final class TestRunner
     {
         foreach ($test_classes as $test_class) {
             if (class_exists($test_class) && $test_class !== BaseTest::class) {
-                $test_class = new $test_class;
-
-                echo $test_class->run();
+                echo (BaseTestFactory::create(
+                    $test_class,
+                    $this->config,
+                    $this->database_connector
+                ))->run();
             }
         }
     }

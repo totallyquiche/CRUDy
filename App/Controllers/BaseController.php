@@ -4,10 +4,27 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Config;
+use App\Views\ViewRenderer;
 
 abstract class BaseController
 {
+    /**
+     * @var ViewRenderer
+     */
+    private ViewRenderer $view_renderer;
+
+    /**
+     * Setter method.
+     *
+     * @param ViewRenderer $view_renderer
+     *
+     * @return void
+     */
+    public function setViewRenderer(ViewRenderer $view_renderer) : void
+    {
+        $this->view_renderer = $view_renderer;
+    }
+
     /**
      * Returns the contents of the specified view.
      *
@@ -16,41 +33,8 @@ abstract class BaseController
      *
      * @return string
      */
-    protected function loadView(string $view_name, array $args = []) : string
+    protected function renderView(string $view_name, array $args = []) : string
     {
-        $cache_file_path = __DIR__ . '/../Views/Cache/' . $view_name . '.cache.php';
-
-        if (
-            !is_readable($cache_file_path) ||
-            (filemtime($cache_file_path) + Config::get('VIEW_CACHE_SECONDS_TO_EXPIRY')) <= time()
-        ) {
-            foreach ($args as $key => $value) {
-                $$key = is_callable($value) ? $value() : $value;
-            }
-
-            $file_path = __DIR__ . '/../Views/' . $view_name . '.php';
-
-            $file_contents = file($file_path);
-            $first_line = $file_contents[0];
-
-            if (preg_match('/{{ (?<template>[a-zA-Z]+) }}/', $first_line, $matches)) {
-                $template_file_path =  __DIR__ . '/../Views/Templates/' . $matches['template'] . '.php';
-                $template_file_contents = file_get_contents($template_file_path);
-
-                array_shift($file_contents);
-
-                $file_contents = preg_replace('/\s*{{ 💩 }}\s*/', implode('', $file_contents), $template_file_contents);
-            }
-
-            file_put_contents($cache_file_path, $file_contents);
-
-            ob_start();
-
-            include($cache_file_path);
-
-            file_put_contents($cache_file_path, ob_get_clean());
-        }
-
-        return file_get_contents($cache_file_path);
+        return $this->view_renderer->renderView($view_name, $args);
     }
 }

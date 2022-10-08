@@ -4,10 +4,35 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Config;
+use App\Database\Connectors\DatabaseConnector;
 use \ReflectionClass;
 
 abstract class BaseTest
 {
+    /**
+     * @var Config
+     */
+    protected Config $config;
+
+    /**
+     * @var DatabaseConnector
+     */
+    protected DatabaseConnector $database_connector;
+
+    /**
+     * Handle instantiation.
+     *
+     * @param Config            $config
+     * @param DatabaseConnector $database_connector
+     *
+     * @return void
+     */
+    public function __construct(Config $config, DatabaseConnector $database_connector) {
+        $this->config = $config;
+        $this->database_connector = $database_connector;
+    }
+
     /**
      * Call test methods and return the results as a string.
      *

@@ -15,6 +15,6 @@ class HttpController extends BaseController
     {
         http_response_code(404);
 
-        return $this->loadView('404');
+        return $this->renderView('404');
     }
 }
