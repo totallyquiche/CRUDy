@@ -55,7 +55,7 @@ The controller should contain methods matching any register routes you have. For
 
 ### Create a View
 
-Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->loadView($view_name, $args)` in the controller method.
+Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
 
 The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
 
@@ -70,7 +70,7 @@ $this->renderView(string $view_name, array $args = [
 A values in `$args` can also be a `Callable`. For example, calling the method below will give the view access to a variable called `$message` with the value `Hello, World!`:
 
 ```php
-$this->loadView(string $view_name, array $args = [
+$this->renderView(string $view_name, array $args = [
     'message' => fn() => return 'Hello, World!',
 ]);
 ```
