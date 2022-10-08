@@ -33,16 +33,18 @@ Technically, that's it! CRUDy is up and running! But you probably want to do mor
 
 ### Create a New Page
 
-Add a new route to the `$routes` array in `index.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+Add a new route to the `$routes` array in `routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
 
 ```php
-$router->register('/', 'HomeController::index');
+$routes = [
+    '/' => 'HomeController::index'
+];
 ```
 
 ```php
-$router->register('/', function () {
-    return 'Hello, World!';
-});
+$routes = [
+    '/' => fn() => 'Hello, World!'
+);
 ```
 
 ### Create a Controller
@@ -60,7 +62,7 @@ The first parameter is the name of the view (without `.php`). The second paramet
 For example, calling the below method call will result in the the `show_object` view (`App/Views/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
 
 ```php
-$this->loadView(string $view_name, array $args = [
+$this->renderView(string $view_name, array $args = [
     'object_name' => 'Object Name';
 ]);
 ```
@@ -69,9 +71,7 @@ A values in `$args` can also be a `Callable`. For example, calling the method be
 
 ```php
 $this->loadView(string $view_name, array $args = [
-    'message' => function() {
-        return 'Hello, World!';
-    },
+    'message' => fn() => return 'Hello, World!',
 ]);
 ```
 
@@ -86,7 +86,7 @@ Templates may be used to support a type of single-inheritance View in which the 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= App\Config::get('SITE_TITLE') ?></title>
+    <title><?= $site_title ?></title>
 </head>
 <body>
     {{ 💩 }}
@@ -109,7 +109,7 @@ the following will be rendered:
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= App\Config::get('SITE_TITLE') ?></title>
+    <title><?= $site_title ?></title>
 </head>
 <body>
     <h1>Hello, World!</h1>
@@ -154,13 +154,13 @@ public function test_that_true_is_true()
 As long as you follow the above naming conventions, your tests will be run automatically through the following command:
 
 ```
-php App/Tests/run_tests.php
+php run_tests.php
 ```
 
 You can run an individual test by passing in the test name as an argument:
 
 ```
-php App/Tests/run_tests.php "App\Tests\RouterTest"
+php run_tests.php "App\Tests\RouterTest"
 ```
 
 ### Test results
