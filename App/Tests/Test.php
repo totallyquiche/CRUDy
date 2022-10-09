@@ -6,6 +6,7 @@ namespace App\Tests;
 
 use App\Config;
 use App\Database\Connectors\DatabaseConnector;
+use App\Tests\Attributes\DataProvider;
 use \ReflectionClass;
 
 abstract class Test
@@ -40,20 +41,55 @@ abstract class Test
      */
     public function run() : string
     {
+        $red_color_code = "\e[31m";
+        $green_color_code = "\e[32m";
+        $end_color_code = "\e[0m";
+
         $failed_tests = [];
 
         foreach ((new ReflectionClass(static::class))->getMethods() as $method) {
             if (str_starts_with($method->name, 'test_')) {
-                if (!$this->{$method->name}()) {
-                    $failed_tests[] = $method->name;
+                $data_provider_attributes = $method->getAttributes(DataProvider::class);
+
+                if (empty($data_provider_attributes)) {
+                    if (!$this->{$method->name}()) {
+                        $failed_tests[] = ['test_method' => $method->name];
+                    }
+                } else {
+                    foreach ($data_provider_attributes as $data_provider_attribute) {
+                        $tests_data = $this->{$data_provider_attribute->newInstance()->method_name}();
+
+                        foreach ($tests_data as $test_case => $test_data) {
+                            if (!$this->{$method->name}($test_data)) {
+                                $failed_tests[] = [
+                                    'case' => $test_case,
+                                    'method' => $method->name,
+                                ];
+                            }
+                        }
+                    }
                 }
             }
         }
 
         if (empty($failed_tests)) {
-            return static::class . ': Passed' . PHP_EOL;
+            $message = $green_color_code . 'Passed ' . $end_color_code;
+            $message .= static::class . PHP_EOL;
         } else {
-            return static::class . ': Failed' . PHP_EOL . implode(PHP_EOL, $failed_tests) . PHP_EOL;
+            $message = $red_color_code . 'Failed ' . $end_color_code;
+            $message .= static::class . PHP_EOL;
+
+            foreach ($failed_tests as $failed_test) {
+                $message .= '       - ' . $failed_test['method'] . '()';
+
+                if (isset($failed_test['case'])) {
+                    $message .= ': ' . $failed_test['case'];
+                }
+
+                $message .= PHP_EOL;
+            }
         }
+
+        return $message;
     }
 }
