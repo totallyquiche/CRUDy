@@ -57,13 +57,12 @@ class Router
             list($controller_name, $method) = explode('::', $this->routes[$route]);
 
             $controller_class = 'App\\Controllers\\' . $controller_name;
-            $controller = new $controller_class;
-            $controller->setViewRenderer($this->view_renderer);
+            $controller = new $controller_class($this->view_renderer);
 
             return $controller->$method();
         }
 
-        return (new HttpController)->http404();
+        return (new HttpController($this->view_renderer))->http404();
     }
 
     /**

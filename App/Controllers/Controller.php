@@ -9,21 +9,13 @@ use App\Views\ViewRenderer;
 abstract class Controller
 {
     /**
-     * @var ViewRenderer
-     */
-    private ViewRenderer $view_renderer;
-
-    /**
-     * Setter method.
+     * Handle instantiation.
      *
      * @param ViewRenderer $view_renderer
      *
      * @return void
      */
-    public function setViewRenderer(ViewRenderer $view_renderer) : void
-    {
-        $this->view_renderer = $view_renderer;
-    }
+    public function __construct(private ViewRenderer $view_renderer) {}
 
     /**
      * Returns the contents of the specified view.
