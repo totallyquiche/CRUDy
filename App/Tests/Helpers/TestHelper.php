@@ -22,6 +22,16 @@ final class TestHelper
     private const DEFAULT_ARRAY_LENGTH = 5;
 
     /**
+     * @const int
+     */
+    private const DEFAULT_NUMBER_OF_DATA_STORE_RECORDS = 9999;
+
+    /**
+     * @const int
+     */
+    private const DEFAULT_NUMBER_OF_DATA_STORE_COLUMNS = 5;
+
+    /**
      * Return a random string of the indicated length.
      *
      * @param int $length
@@ -69,9 +79,31 @@ final class TestHelper
         $array = [];
 
         for ($i = 0; $i < $length; $i++) {
-            $array[] = self::getRandomString();
+            $array[self::getRandomString()] = self::getRandomString();
         }
 
         return $array;
+    }
+
+    /**
+     * Get an array of data representing a data store.
+     *
+     * @param int $number_of_records
+     * @param int $number_of_columns
+     *
+     * @return array
+     */
+    public static function getDataStoreData(
+        int $number_of_records = self::DEFAULT_NUMBER_OF_DATA_STORE_RECORDS,
+        int $number_of_columns = self::DEFAULT_NUMBER_OF_DATA_STORE_COLUMNS
+    ) : array
+    {
+        $records = [];
+
+        for ($i = 0; $i < $number_of_records; $i++) {
+            $record[] = self::getRandomStringArray($number_of_columns);
+        }
+
+        return $records;
     }
 }

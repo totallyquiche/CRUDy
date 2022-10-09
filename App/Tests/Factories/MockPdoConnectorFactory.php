@@ -16,7 +16,7 @@ final class MockPdoConnectorFactory
      * @param array $data
      * @param int   $affected_records_count
      *
-     * @return PdoConnector
+     * @return MockPdoConnector
      */
     public static function create(
         array $data = [],

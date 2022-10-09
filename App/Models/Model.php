@@ -9,20 +9,6 @@ use App\Database\Connectors\DatabaseConnector;
 abstract class Model
 {
     /**
-     * The name of the database table.
-     *
-     * @var string
-     */
-    public string $table_name;
-
-    /**
-     * The primary key of the database table.
-     *
-     * @var string
-     */
-    public string $primary_key = 'id';
-
-    /**
      * Database connection.
      *
      * @param DatabaseConnector|null
@@ -48,7 +34,23 @@ abstract class Model
      */
     public function all() : array
     {
-        return $this->database_connector->query("SELECT * FROM `$this->table_name`;");
+        $table_name = $this->getTableName();
+
+        $results = $this->database_connector->query("SELECT * FROM `$table_name`;");
+
+        $objects = [];
+
+        foreach ($results as $result) {
+            $object = new static($this->database_connector);
+
+            foreach ($result as $key => $value) {
+                $object->{$key} = $value;
+            }
+
+            $objects[] = $object;
+        }
+
+        return $objects;
     }
 
     /**
@@ -56,12 +58,43 @@ abstract class Model
      *
      * @param int $id
      *
-     * @return array
+     * @return static
      */
-    public function find(int $id) : array
+    public function find(int $id) : static
     {
-        return $this->database_connector->query(
-            "SELECT * FROM `$this->table_name` WHERE `$this->primary_key` = $id"
+        $table_name = $this->getTableName();
+        $primary_key = $this->getPrimaryKey();
+
+        $results = $this->database_connector->query(
+            "SELECT * FROM `$table_name` WHERE `$primary_key` = $id"
         );
+
+        $objects = [];
+
+        foreach ($results as $result) {
+            $object = new static($this->database_connector);
+
+            foreach ($result as $key => $value) {
+                $object->{$key} = $value;
+            }
+
+            $objects[] = $object;
+        }
+
+        return $objects[0];
     }
+
+    /**
+     * Get the DB table name corresponding to the model.
+     *
+     * @return string
+     */
+    abstract public function getTableName() : string;
+
+    /**
+     * Get the primary key corresponding to the DB table.
+     *
+     * @return string
+     */
+    abstract public function getPrimaryKey() : string;
 }

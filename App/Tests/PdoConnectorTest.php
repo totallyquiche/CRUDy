@@ -16,7 +16,7 @@ final class PdoConnectorTest extends Test
      */
     public function test_query() : bool
     {
-        $data_store_data = TestHelper::getRandomStringArray();
+        $data_store_data = TestHelper::getDataStoreData();
 
         $mock_pdo_connector = MockPdoConnectorFactory::create($data_store_data);
 
