@@ -33,6 +33,7 @@ final class TestRunner
     public function run(array $test_classes) : void
     {
         $all_results = [];
+        $classes_missing_tests = [];
 
         foreach ($test_classes as $test_class) {
             if (class_exists($test_class) && $test_class !== Test::class) {
@@ -45,6 +46,18 @@ final class TestRunner
                 foreach ($results as $result) {
                     $all_results[] = $result;
                 }
+
+                if (empty($results)) {
+                    $classes_missing_tests[] = $test_class;
+                }
+            }
+        }
+
+        if (!empty($classes_missing_tests)) {
+            echo PHP_EOL;
+
+            foreach ($classes_missing_tests as $class_missing_tests) {
+                echo 'No tests found in ' . $class_missing_tests . PHP_EOL;
             }
         }
 
