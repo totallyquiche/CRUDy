@@ -10,9 +10,13 @@ $config_file_path = __DIR__ . '/.env.test';
 
 require_once(__DIR__ . '/bootstrap.php');
 
-isset($argv[1]) ? $tests = [$argv[1]] : $tests = TestRunner::getAllTestClasses();
+isset($argv[1]) ?
+    $tests = [$argv[1]] :
+    $tests = TestRunner::getAllTestClasses();
 
-(new TestRunner(
-    $config,
-    $database_connector
-))->run($tests);
+$test_runner = new TestRunner(
+    $app->getConfig(),
+    $app->getDatabaseConnector()
+);
+
+$test_runner->run($tests);

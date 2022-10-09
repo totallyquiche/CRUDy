@@ -23,6 +23,26 @@ final class App
     ) {}
 
     /**
+     * Return Config.
+     *
+     * @return Config
+     */
+    public function getConfig() : Config
+    {
+        return $this->config;
+    }
+
+    /**
+     * Return DatabaseConnector.
+     *
+     * @return DatabaseConnector
+     */
+    public function getDatabaseConnector() : DatabaseConnector
+    {
+        return $this->database_connector;
+    }
+
+    /**
      * Entrypoint to the application.
      *
      * @return void
