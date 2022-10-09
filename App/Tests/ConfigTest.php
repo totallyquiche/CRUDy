@@ -71,7 +71,10 @@ final class ConfigTest extends Test
      * @return bool
      */
     #[DataProvider('provideConfigFileLines')]
-    public function test_can_set_and_retrieve_config_options(array $test_data, array $expected_results) : bool
+    public function test_can_set_and_retrieve_config_options(
+        array $test_data,
+        array $expected_results
+    ) : bool
     {
         $lines = [];
 
