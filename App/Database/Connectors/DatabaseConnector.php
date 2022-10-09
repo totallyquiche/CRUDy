@@ -20,7 +20,7 @@ interface DatabaseConnector
      *
      * @param string $query
      *
-     * @return void
+     * @return int
      */
-    public function execute(string $query) : void;
+    public function execute(string $query) : int;
 }

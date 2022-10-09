@@ -14,12 +14,18 @@ final class MockPdoConnectorFactory
      * Create a mock instance of PdoConnector.
      *
      * @param array $data
+     * @param int   $affected_records_count
      *
      * @return PdoConnector
      */
-    public static function create(array $data) : MockPdoConnector
+    public static function create(
+        array $data = [],
+        int $affected_records_count = 5
+    ) : MockPdoConnector
     {
         $mock_pdo = new MockPdo('');
+        $mock_pdo->setAffectedRecordsCount($affected_records_count);
+
         $mock_pdo_connector = new MockPdoConnector($mock_pdo);
 
         $mock_pdo_statement = new MockPdoStatement;

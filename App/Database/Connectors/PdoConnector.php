@@ -49,10 +49,10 @@ abstract class PdoConnector implements DatabaseConnector
      *
      * @param string $query
      *
-     * @return void
+     * @return int
      */
-    public function execute(string $query) : void
+    public function execute(string $query) : int
     {
-        $this->pdo->exec($query);
+        return $this->pdo->exec($query);
     }
 }
