@@ -41,53 +41,59 @@ abstract class Test
      */
     public function run() : string
     {
-        $red_color_code = "\e[31m";
-        $green_color_code = "\e[32m";
-        $end_color_code = "\e[0m";
-
-        $failed_tests = [];
+        $results = [];
 
         foreach ((new ReflectionClass(static::class))->getMethods() as $method) {
             if (str_starts_with($method->name, 'test_')) {
                 $data_provider_attributes = $method->getAttributes(DataProvider::class);
 
                 if (empty($data_provider_attributes)) {
-                    if (!$this->{$method->name}()) {
-                        $failed_tests[] = ['test_method' => $method->name];
-                    }
+                    $results[] = [
+                        'method' => $method->name,
+                        'result' => $this->{$method->name}(),
+                    ];
                 } else {
                     foreach ($data_provider_attributes as $data_provider_attribute) {
                         $tests_data = $this->{$data_provider_attribute->newInstance()->method_name}();
 
                         foreach ($tests_data as $test_case => $test_data) {
-                            if (!$this->{$method->name}($test_data['data'], $test_data['expected_results'])) {
-                                $failed_tests[] = [
-                                    'case' => $test_case,
-                                    'method' => $method->name,
-                                ];
-                            }
+                            $results[] = [
+                                'case' => $test_case,
+                                'method' => $method->name,
+                                'result' => $this->{$method->name}(
+                                    $test_data['data'],
+                                    $test_data['expected_results']
+                                ),
+                            ];
                         }
                     }
                 }
             }
         }
 
-        if (empty($failed_tests)) {
-            $message = $green_color_code . 'Passed ' . $end_color_code;
-            $message .= static::class . PHP_EOL;
-        } else {
-            $message = $red_color_code . 'Failed ' . $end_color_code;
-            $message .= static::class . PHP_EOL;
+        $red_color_code = "\e[31m";
+        $green_color_code = "\e[32m";
+        $end_color_code = "\e[0m";
+        $message = '';
 
-            foreach ($failed_tests as $failed_test) {
-                $message .= '       - ' . $failed_test['method'] . '()';
-
-                if (isset($failed_test['case'])) {
-                    $message .= ': ' . $failed_test['case'];
-                }
-
-                $message .= PHP_EOL;
+        foreach ($results as $result) {
+            if ($result['result']) {
+                $message .= $green_color_code . 'Passed ' . $end_color_code;
+                $message .= static::class;
+            } else {
+                $message = $red_color_code . 'Failed ' . $end_color_code;
+                $message .= static::class;
             }
+
+            if (isset($result['method'])) {
+                $message .= '::' . $result['method'] . '()';
+            }
+
+            if (isset($result['case'])) {
+                $message .= ' | Case: ' . $result['case'];
+            }
+
+            $message .= PHP_EOL;
         }
 
         return $message;
