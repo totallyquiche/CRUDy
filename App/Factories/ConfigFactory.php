@@ -11,14 +11,14 @@ final class ConfigFactory
     /**
      * Create an instance of Config.
      *
-     * @param string $config_file_path
+     * @param array $config_file_lines
      *
      * @return Config
      */
-    public static function create(string $config_file_path) : Config
+    public static function create(array $config_file_lines) : Config
     {
         $config = new Config;
-        $config->load($config_file_path);
+        $config->setConfigOptions($config_file_lines);
 
         return $config;
     }

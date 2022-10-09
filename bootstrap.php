@@ -9,7 +9,7 @@ use App\Database\Connectors\Factories\DatabaseConnectorFactory;
 
 require_once(__DIR__ . '/autoload.php');
 
-$config = ConfigFactory::create($config_file_path);
+$config = ConfigFactory::create(file($config_file_path));
 
 $app = new App(
     $config,

@@ -14,24 +14,22 @@ final class Config
     private array $config_options = [];
 
     /**
-     * Load config options/values from the specified path.
+     * Set config options based on provided config file lines.
      *
-     * @param string $config_file_path
+     * @param array $config_file_lines
      *
      * @return void
      */
-    public function load(string $config_file_path) : void
+    public function setConfigOptions(array $config_file_lines) : void
     {
-        if ($config_option_strings = file($config_file_path)) {
-            foreach ($config_option_strings as $config_option_string) {
-                $config_option_parts = explode('=', $config_option_string);
+        foreach ($config_file_lines as $config_file_line) {
+            $config_file_line_parts = explode('=', $config_file_line);
 
-                if (count($config_option_parts) === 2) {
-                    list($key, $value) = $config_option_parts;
+            if (count($config_file_line_parts) === 2) {
+                list($key, $value) = $config_file_line_parts;
 
-                    if (!is_null($key) && !is_null($value)) {
-                        $this->config_options[trim($key)] = trim($value);
-                    }
+                if (!is_null($key) && !is_null($value)) {
+                    $this->config_options[trim($key)] = trim($value);
                 }
             }
         }
