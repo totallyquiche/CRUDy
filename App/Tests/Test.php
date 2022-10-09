@@ -60,7 +60,7 @@ abstract class Test
                         $tests_data = $this->{$data_provider_attribute->newInstance()->method_name}();
 
                         foreach ($tests_data as $test_case => $test_data) {
-                            if (!$this->{$method->name}($test_data)) {
+                            if (!$this->{$method->name}($test_data['data'], $test_data['expected_results'])) {
                                 $failed_tests[] = [
                                     'case' => $test_case,
                                     'method' => $method->name,
