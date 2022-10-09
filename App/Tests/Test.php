@@ -37,9 +37,9 @@ abstract class Test
     /**
      * Call test methods and return the results as a string.
      *
-     * @return string
+     * @return array
      */
-    public function run() : string
+    public function run() : array
     {
         $results = [];
 
@@ -49,6 +49,7 @@ abstract class Test
 
                 if (empty($data_provider_attributes)) {
                     $results[] = [
+                        'class' => static::class,
                         'method' => $method->name,
                         'result' => $this->{$method->name}(),
                     ];
@@ -58,6 +59,7 @@ abstract class Test
 
                         foreach ($tests_data as $test_case => $test_data) {
                             $results[] = [
+                                'class' => static::class,
                                 'case' => $test_case,
                                 'method' => $method->name,
                                 'result' => $this->{$method->name}(
@@ -71,31 +73,6 @@ abstract class Test
             }
         }
 
-        $red_color_code = "\e[31m";
-        $green_color_code = "\e[32m";
-        $end_color_code = "\e[0m";
-        $message = '';
-
-        foreach ($results as $result) {
-            if ($result['result']) {
-                $message .= $green_color_code . 'Passed ' . $end_color_code;
-                $message .= static::class;
-            } else {
-                $message = $red_color_code . 'Failed ' . $end_color_code;
-                $message .= static::class;
-            }
-
-            if (isset($result['method'])) {
-                $message .= '::' . $result['method'] . '()';
-            }
-
-            if (isset($result['case'])) {
-                $message .= ' | Case: ' . $result['case'];
-            }
-
-            $message .= PHP_EOL;
-        }
-
-        return $message;
+        return $results;
     }
 }
