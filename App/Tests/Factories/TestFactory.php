@@ -6,9 +6,9 @@ namespace App\Tests\Factories;
 
 use App\Config;
 use App\Database\Connectors\DatabaseConnector;
-use App\Tests\BaseTest;
+use App\Tests\Test;
 
-final class BaseTestFactory
+final class TestFactory
 {
     /**
      * Create an instance of the specified test class.
@@ -17,13 +17,13 @@ final class BaseTestFactory
      * @param Config            $config
      * @param DatabaseConnector $database_connector
      *
-     * @return BaseTest
+     * @return Test
      */
     public static function create(
         string $class_name,
         Config $config,
         DatabaseConnector $database_connector
-    ) : BaseTest
+    ) : Test
     {
         return new $class_name(
             $config,

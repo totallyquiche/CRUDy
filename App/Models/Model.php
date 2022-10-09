@@ -6,7 +6,7 @@ namespace App\Models;
 
 use App\Database\Connectors\DatabaseConnector;
 
-abstract class BaseModel
+abstract class Model
 {
     /**
      * The name of the database table.

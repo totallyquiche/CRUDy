@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-final class BaseModelTest extends BaseTest
+final class ModelTest extends Test
 {
     // TODO: write tests
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
     /**
      * Render the home page.

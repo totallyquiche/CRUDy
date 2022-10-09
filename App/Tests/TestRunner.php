@@ -6,8 +6,8 @@ namespace App\Tests;
 
 use App\Config;
 use App\Database\Connectors\DatabaseConnector;
-use App\Tests\BaseTest;
-use App\Tests\Factories\BaseTestFactory;
+use App\Tests\Test;
+use App\Tests\Factories\TestFactory;
 
 final class TestRunner
 {
@@ -33,8 +33,8 @@ final class TestRunner
     public function run(array $test_classes) : void
     {
         foreach ($test_classes as $test_class) {
-            if (class_exists($test_class) && $test_class !== BaseTest::class) {
-                echo (BaseTestFactory::create(
+            if (class_exists($test_class) && $test_class !== Test::class) {
+                echo (TestFactory::create(
                     $test_class,
                     $this->config,
                     $this->database_connector

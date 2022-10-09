@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-class HttpController extends BaseController
+class HttpController extends Controller
 {
     /**
      * Render the home page.

@@ -8,7 +8,7 @@ use App\Config;
 use App\Database\Connectors\DatabaseConnector;
 use \ReflectionClass;
 
-abstract class BaseTest
+abstract class Test
 {
     /**
      * @var Config

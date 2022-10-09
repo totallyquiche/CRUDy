@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Views\ViewRenderer;
 
-abstract class BaseController
+abstract class Controller
 {
     /**
      * @var ViewRenderer
