@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Controllers\Http\HomeController;
+
 $routes = [
-    '/' => 'HomeController::index',
+    '/' => [HomeController::class, 'index'],
 ];

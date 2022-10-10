@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App\Controllers\Http;
 
-class HomeController extends Controller
+class HomeController extends HttpController
 {
     /**
      * Render the home page.
