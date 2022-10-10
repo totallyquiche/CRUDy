@@ -18,6 +18,7 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like. :s
 - Page caching
 - Environment variables (.env)
 - Database Abstraction Layer (DBAL)
+- Headless execution
 - MVC architecture
 - Routing
 - Templates
@@ -34,7 +35,7 @@ Technically, that's it! CRUDy is up and running! But you probably want to do mor
 
 ### Create a New Page
 
-Add a new route to the `$routes` array in `App/Routes/http.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+Add a new route to the `$routes` array in `App/Http/routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
 
 ```php
 $routes = [

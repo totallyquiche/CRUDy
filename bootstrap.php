@@ -29,7 +29,7 @@ if ($db_driver) {
 }
 
 if (isset($_SERVER['REQUEST_URI'])) {
-    require_once(__DIR__ . '/App/Routes/http.php');
+    require_once(__DIR__ . '/App/Http/routes.php');
 
     $template_renderer = new TemplateRenderer(
         $config->get('SITE_TITLE'),
@@ -43,13 +43,13 @@ if (isset($_SERVER['REQUEST_URI'])) {
         $template_renderer
     );
 } else {
-    require_once(__DIR__ . '/App/Routes/cli.php');
+    require_once(__DIR__ . '/App/Cli/routes.php');
 
     $cli_renderer = new CliRenderer;
 
     $router = new CliRouter(
         $routes,
-        $argv[1] ?? '',
+        '',
         $cli_renderer
     );
 }
