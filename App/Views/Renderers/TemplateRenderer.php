@@ -34,7 +34,7 @@ final class TemplateRenderer extends ViewRenderer
         array $args = []
     ) : string
     {
-        $cache_file_path = __DIR__ . '/../../Views/Cache/' . $view_name . '.cache.php';
+        $cache_file_path = __DIR__ . '/../../Views/Templates/Cache/' . $view_name . '.cache.php';
 
         if (
             !is_readable($cache_file_path) ||
@@ -52,7 +52,7 @@ final class TemplateRenderer extends ViewRenderer
                 $site_url = $this->site_url;
             }
 
-            $file_path = __DIR__ . '/../../Views/' . $view_name . '.php';
+            $file_path = __DIR__ . '/../../Views/Templates/' . $view_name . '.php';
 
             $file_contents = file($file_path);
             $first_line = $file_contents[0];

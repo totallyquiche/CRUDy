@@ -35,7 +35,7 @@ Technically, that's it! CRUDy is up and running! But you probably want to do mor
 
 ### Create a New Page
 
-Add a new route to the `$routes` array in `App/Http/routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+Add a new route to the `$routes` array in `./App/Http/routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
 
 ```php
 $routes = [
@@ -57,11 +57,11 @@ The controller should contain methods matching any register routes you have. For
 
 ### Create a View
 
-Create a new `.php` file in `App/Views`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
+Create a new `.php` file in `App/Views/Templates`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
 
 The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
 
-For example, calling the below method call will result in the the `show_object` view (`App/Views/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
+For example, calling the below method call will result in the the `show_object` view (`App/Views/Templates/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
 
 ```php
 $this->renderView('show_object', [
@@ -134,13 +134,13 @@ To use a Template, ensure that the first line of your View file contains a strin
 
 ## View Caching
 
-After a View has been fully compiled, it is written to a cache located at `App\Views\Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
+After a View has been fully compiled, it is written to a cache located at `./App/Views/Templates/Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
 
 ## Testing
 
 ### Writing Tests
 
-Create a new class in `App/Tests` that extends `App\Tests\Test`. The class name should end with `Test` (e.g. `HomeControllerTest`). The file name should be the class name plus `.php` (e.g. `HomeControllerTest.php`).
+Create a new class in `./App/Tests` that extends `App\Tests\Test`. The class name should end with `Test` (e.g. `HomeControllerTest`). The file name should be the class name plus `.php` (e.g. `HomeControllerTest.php`).
 
 Your test methods should be `public`, should start with `test_`, and should return a `boolean` indicating whether the test passed.
 
