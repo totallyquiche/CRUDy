@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controllers\Http;
+namespace App\Http\Controllers;
 
-use App\Controllers\Controller;
-use App\Views\Renderers\TemplateRenderer;
+use App\Controller;
 
 class HttpController extends Controller
 {

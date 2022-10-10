@@ -10,7 +10,7 @@ use App\Routers\HttpRouter;
 use App\Views\Renderers\CliRenderer;
 use App\Tests\Factories\MockControllerFactory;
 use App\Tests\Mocks\Controller as MockController;
-use App\Controllers\Http\HttpController;
+use App\Http\Controllers\HttpController;
 use App\Views\Renderers\TemplateRenderer;
 
 final class RouterTest extends Test

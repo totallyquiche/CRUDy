@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Routers;
 
-use App\Controllers\Http\HttpController;
+use App\Http\Controllers\HttpController;
 
 class HttpRouter extends Router
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Mocks;
 
-use App\Controllers\Controller as RealController;
+use App\Controller as RealController;
 use App\Views\Renderers\CliRenderer;
 
 final class Controller extends RealController {

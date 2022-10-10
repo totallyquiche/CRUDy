@@ -51,7 +51,7 @@ $routes = [
 
 ### Create a Controller
 
-Create a new class in `App/Controllers/Http` that extends `App\Controllers\HttpController`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
+Create a new class in `App/Controllers/Http` that extends `App\Http\Controllers\HttpController`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
 
 The controller should contain methods matching any register routes you have. For example, if I have registerd a route referencing `HomeController::index`, then I should have a controller named `HomeController` with a method named `index()` which returns a string.
 
