@@ -17,8 +17,8 @@ final class TestsController extends CliController
     public function run() : string
     {
         $test_runner = new TestRunner(
-                App::getConfig(),
-                App::getDatabaseConnector()
+            App::getConfig(),
+            App::getDatabaseConnector()
         );
 
         $tests = [];
