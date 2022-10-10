@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Cli\Controllers;
 
 use App\Controller;
-use App\Views\Renderers\ViewRenderer;
+use App\View\Renderers\ViewRenderer;
 
 abstract class CliController extends Controller {
     /**

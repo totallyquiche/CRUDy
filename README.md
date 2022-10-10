@@ -57,11 +57,11 @@ The controller should contain methods matching any register routes you have. For
 
 ### Create a View
 
-Create a new `.php` file in `App/Views/Templates`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
+Create a new `.php` file in `App/View/Templates`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
 
 The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
 
-For example, calling the below method call will result in the the `show_object` view (`App/Views/Templates/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
+For example, calling the below method call will result in the the `show_object` view (`App/View/Templates/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
 
 ```php
 $this->renderView('show_object', [
@@ -121,11 +121,11 @@ the following will be rendered:
 
 ### Creating a Template
 
-Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and live in `App\Views\Templates`. The should contain a single placeholder, `{{ 💩 }}` for embedding Views within them.
+Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and live in `App\View\Templates`. The should contain a single placeholder, `{{ 💩 }}` for embedding View within them.
 
 ### Using a Template
 
-To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\Views\Templates\page.php`:
+To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
 
 ```php
 {{ page }}
@@ -134,7 +134,7 @@ To use a Template, ensure that the first line of your View file contains a strin
 
 ## View Caching
 
-After a View has been fully compiled, it is written to a cache located at `./App/Views/Templates/Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
+After a View has been fully compiled, it is written to a cache located at `./App/View/Templates/Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
 
 ## Testing
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Routers;
 
-use App\Views\Renderers\ViewRenderer;
+use App\View\Renderers\ViewRenderer;
 
 abstract class Router
 {

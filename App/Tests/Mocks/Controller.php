@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Mocks;
 
 use App\Controller as RealController;
-use App\Views\Renderers\DirectRenderer;
+use App\View\Renderers\DirectRenderer;
 
 final class Controller extends RealController {
     /**

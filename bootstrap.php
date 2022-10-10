@@ -8,8 +8,8 @@ use App\Factories\ConfigFactory;
 use App\Database\Connectors\Factories\DatabaseConnectorFactory;
 use App\Routers\HttpRouter;
 use App\Routers\CliRouter;
-use App\Views\Renderers\TemplateRenderer;
-use App\Views\Renderers\DirectRenderer;
+use App\View\Renderers\TemplateRenderer;
+use App\View\Renderers\DirectRenderer;
 
 require_once(__DIR__ . '/autoload.php');
 

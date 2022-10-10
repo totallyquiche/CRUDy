@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Factories;
 
 use App\Tests\Mocks\Controller as MockController;
-use App\Views\Renderers\ViewRenderer;
+use App\View\Renderers\ViewRenderer;
 
 final class MockControllerFactory
 {

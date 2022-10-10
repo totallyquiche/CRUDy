@@ -8,11 +8,11 @@ use App\App;
 use App\Tests\Attributes\DataProvider;
 use App\Tests\Helpers\TestHelper;
 use App\Routers\HttpRouter;
-use App\Views\Renderers\DirectRenderer;
+use App\View\Renderers\DirectRenderer;
 use App\Tests\Factories\MockControllerFactory;
 use App\Tests\Mocks\Controller as MockController;
 use App\Http\Controllers\HttpController;
-use App\Views\Renderers\TemplateRenderer;
+use App\View\Renderers\TemplateRenderer;
 
 final class RouterTest extends Test
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Views\Renderers;
+namespace App\View\Renderers;
 
 final class TemplateRenderer implements ViewRenderer
 {
@@ -34,7 +34,7 @@ final class TemplateRenderer implements ViewRenderer
         array $args = []
     ) : string
     {
-        $cache_file_path = __DIR__ . '/../../Views/Templates/Cache/' . $view_name . '.cache.php';
+        $cache_file_path = __DIR__ . '/../../View/Templates/Cache/' . $view_name . '.cache.php';
 
         if (
             !is_readable($cache_file_path) ||
@@ -52,13 +52,13 @@ final class TemplateRenderer implements ViewRenderer
                 $site_url = $this->site_url;
             }
 
-            $file_path = __DIR__ . '/../../Views/Templates/' . $view_name . '.php';
+            $file_path = __DIR__ . '/../../View/Templates/' . $view_name . '.php';
 
             $file_contents = file($file_path);
             $first_line = $file_contents[0];
 
             if (preg_match('/{{ (?<template>[a-zA-Z]+) }}/', $first_line, $matches)) {
-                $template_file_path =  __DIR__ . '/../../Views/Templates/' . $matches['template'] . '.php';
+                $template_file_path =  __DIR__ . '/../../View/Templates/' . $matches['template'] . '.php';
                 $template_file_contents = file_get_contents($template_file_path);
 
                 array_shift($file_contents);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Views\Renderers;
+namespace App\View\Renderers;
 
 final class DirectRenderer implements ViewRenderer
 {
