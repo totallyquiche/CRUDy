@@ -28,9 +28,9 @@ final class TestRunner
      *
      * @param array $test_classes
      *
-     * @return void
+     * @return string
      */
-    public function run(array $test_classes) : void
+    public function run(array $test_classes) : string
     {
         $all_results = [];
         $classes_missing_tests = [];
@@ -61,7 +61,7 @@ final class TestRunner
             }
         }
 
-        echo $this->generateResultsMessage($all_results);
+        return $this->generateResultsMessage($all_results);
     }
 
     /**

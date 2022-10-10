@@ -10,6 +10,13 @@ use App\Database\Connectors\DatabaseConnector;
 final class App
 {
     /**
+     * Static instance of this class (Singleton pattern).
+     *
+     * @var App
+     */
+    static App $self;
+
+    /**
      * Handle instantiation.
      *
      * @param Config                 $config
@@ -18,7 +25,7 @@ final class App
      *
      * @return void
      */
-    public function __construct(
+    private function __construct(
         private Config $config,
         private Router $router,
         private ?DatabaseConnector $database_connector
@@ -29,9 +36,9 @@ final class App
      *
      * @return Config
      */
-    public function getConfig() : Config
+    public static function getConfig() : Config
     {
-        return $this->config;
+        return self::$self->config;
     }
 
     /**
@@ -39,18 +46,42 @@ final class App
      *
      * @return DatabaseConnector|null
      */
-    public function getDatabaseConnector() : DatabaseConnector|null
+    public static function getDatabaseConnector() : DatabaseConnector|null
     {
-        return $this->database_connector;
+        return self::$self->database_connector;
     }
 
     /**
-     * Entrypoint to the application.
+     * Execute the application.
      *
      * @return string
      */
-    public function run() : string
+    private function run() : string
     {
-        return $this->router ? $this->router->route() : '';
+        exit($this->router ? $this->router->route() : 0);
+    }
+
+    /**
+     * Instantiate the application.
+     *
+     * @param Config                 $config
+     * @param Router                 $router
+     * @param null|DatabaseConnector $database_connector
+     *
+     * @return void
+     */
+    public static function init(
+        Config $config,
+        Router $router,
+        ?DatabaseConnector $database_connector
+    ) : void
+    {
+        self::$self = new self(
+            $config,
+            $router,
+            $database_connector
+        );
+
+        self::$self->run();
     }
 }

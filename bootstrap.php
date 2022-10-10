@@ -13,7 +13,7 @@ use App\Views\Renderers\CliRenderer;
 
 require_once(__DIR__ . '/autoload.php');
 
-$config = ConfigFactory::create(file($config_file_path));
+$config = ConfigFactory::create(file(__DIR__ . '/.env'));
 $db_driver = $config->get('DB_DRIVER');
 
 if ($db_driver) {
@@ -49,15 +49,14 @@ if (isset($_SERVER['REQUEST_URI'])) {
 
     $router = new CliRouter(
         $routes,
-        '',
-        $cli_renderer
+        $argv[1] ?? '',
+        $cli_renderer,
+        $argv
     );
 }
 
-$app = new App(
+App::init(
     $config,
     $router,
     $database_connector ?? null
 );
-
-echo $app->run();

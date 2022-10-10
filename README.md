@@ -156,13 +156,13 @@ public function test_that_true_is_true() : bool
 As long as you follow the above naming conventions, your tests will be run automatically through the following command:
 
 ```sh
-php run_tests.php
+php index.php tests:run
 ```
 
-You can run an individual test by passing in the test name as an argument:
+You can run specific tests by passing in their name as arguments:
 
 ```sh
-php run_tests.php "App\Tests\RouterTest"
+php index.php tests:run "App\Tests\ModelTest" "App\Tests\RouterTest"
 ```
 
 ### Test results

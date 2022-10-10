@@ -24,9 +24,9 @@ abstract class Router
     ) {}
 
     /**
-     * Get the rendered content for the provided route.
+     * Get the rendered content for the provided route or an exit status.
      *
-     * @return string;
+     * @return string|int
      */
-    abstract public function route() : string;
+    abstract public function route() : string|int;
 }

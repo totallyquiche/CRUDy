@@ -11,9 +11,9 @@ class HttpRouter extends Router
     /**
      * Get the rendered content for the provided route.
      *
-     * @return string;
+     * @return string|int;
      */
-    public function route() : string
+    public function route() : string|int
     {
         $router_handler = $this->routes[$this->route_name] ?? null;
 

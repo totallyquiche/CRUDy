@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Views\Renderers;
 
-final class TemplateRenderer extends ViewRenderer
+final class TemplateRenderer implements ViewRenderer
 {
     /**
      * Handle instantiation.

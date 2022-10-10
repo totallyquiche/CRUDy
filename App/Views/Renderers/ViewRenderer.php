@@ -4,25 +4,8 @@ declare(strict_types=1);
 
 namespace App\Views\Renderers;
 
-abstract class ViewRenderer
+interface ViewRenderer
 {
-    /**
-     * @var string
-     */
-    protected string $content;
-
-    /**
-     * Setter method.
-     *
-     * @param string $content
-     *
-     * @return void
-     */
-    public function setContent(string $content) : void
-    {
-        $this->content = $content;
-    }
-
     /**
      * Render the specified view.
      *
@@ -31,7 +14,7 @@ abstract class ViewRenderer
      *
      * @return string
      */
-    abstract public function renderView(
+    public function renderView(
         string $view_name = '',
         array $args = []
     ) : string;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\App;
 use App\Tests\Attributes\DataProvider;
 use App\Tests\Helpers\TestHelper;
 use App\Routers\HttpRouter;
@@ -71,9 +72,9 @@ final class RouterTest extends Test
     public function test_missing_route() : bool
     {
         $template_renderer = new TemplateRenderer(
-            $this->config->get('SITE_TITLE'),
-            $this->config->get('SITE_URL'),
-            intval($this->config->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
+            App::getConfig()->get('SITE_TITLE'),
+            App::getConfig()->get('SITE_URL'),
+            intval(App::getConfig()->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
         );
 
         $router = new HttpRouter(

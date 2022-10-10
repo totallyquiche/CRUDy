@@ -4,8 +4,25 @@ declare(strict_types=1);
 
 namespace App\Views\Renderers;
 
-final class CliRenderer extends ViewRenderer
+final class CliRenderer implements ViewRenderer
 {
+    /**
+     * @var string
+     */
+    protected string $content;
+
+    /**
+     * Setter method.
+     *
+     * @param string $content
+     *
+     * @return void
+     */
+    public function setContent(string $content) : void
+    {
+        $this->content = $content;
+    }
+
     /**
      * Render the specified view.
      *
