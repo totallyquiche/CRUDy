@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Database\Models;
+
+use App\Model;
 
 use App\Database\Connectors\DatabaseConnector;
 
-abstract class Model
+abstract class DatabaseModel implements Model
 {
     /**
      * Database connection.

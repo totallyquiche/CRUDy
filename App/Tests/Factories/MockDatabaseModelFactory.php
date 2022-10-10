@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Tests\Factories;
 
-use App\Tests\Mocks\Model as MockModel;
+use App\Tests\Mocks\DatabaseModel as MockDatabaseModel;
 
-final class MockModelFactory
+final class MockDatabaseModelFactory
 {
     /**
      * Create a mock instance of Model.
      *
-     * @return MockModel
+     * @return MockDatabaseModel
      */
     public static function create(
         array $data,
         string $primary_key,
         int $id
-    ) : MockModel
+    ) : MockDatabaseModel
     {
-        $mock_model = new MockModel(
+        $mock_model = new MockDatabaseModel(
             MockPdoConnectorFactory::create([$data])
         );
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Mocks;
 
-use App\Models\Model as RealModel;
+use App\Database\Models\DatabaseModel as RealDatabaseModel;
 
 use App\Tests\Helpers\TestHelper;
 
-final class Model extends RealModel {
+final class DatabaseModel extends RealDatabaseModel {
     /**
      * Primary key on the DB.
      *

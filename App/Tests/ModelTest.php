@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Tests\Factories\MockModelFactory;
-use App\Tests\Mocks\Model as MockModel;
+use App\Tests\Factories\MockDatabaseModelFactory;
+use App\Tests\Mocks\DatabaseModel as MockDatabaseModel;
 use App\Tests\Factories\MockPdoConnectorFactory;
 use App\Tests\Helpers\TestHelper;
 
@@ -20,7 +20,7 @@ final class ModelTest extends Test
     {
         $data = TestHelper::getDataStoreData();
 
-        $mock_model = new MockModel(
+        $mock_model = new MockDatabaseModel(
             MockPdoConnectorFactory::create($data)
         );
 
@@ -42,7 +42,7 @@ final class ModelTest extends Test
     {
         $data = TestHelper::getDataStoreData();
 
-        $mock_model = new MockModel(
+        $mock_model = new MockDatabaseModel(
             MockPdoConnectorFactory::create($data)
         );
 
@@ -61,7 +61,7 @@ final class ModelTest extends Test
         $data = TestHelper::getRandomStringArray();
         $data[$primary_key] = $id;
 
-        $mock_model = MockModelFactory::create($data, $primary_key, $id);
+        $mock_model = MockDatabaseModelFactory::create($data, $primary_key, $id);
 
         $record = $mock_model->find($id);
 
@@ -80,7 +80,7 @@ final class ModelTest extends Test
         $data = TestHelper::getRandomStringArray();
         $data[$primary_key] = $id;
 
-        $mock_model = MockModelFactory::create($data, $primary_key, $id);
+        $mock_model = MockDatabaseModelFactory::create($data, $primary_key, $id);
 
         $record = $mock_model->find($id);
 
