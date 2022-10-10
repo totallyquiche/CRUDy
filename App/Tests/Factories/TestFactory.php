@@ -13,16 +13,16 @@ final class TestFactory
     /**
      * Create an instance of the specified test class.
      *
-     * @param string            $class_name
-     * @param Config            $config
-     * @param DatabaseConnector $database_connector
+     * @param string                 $class_name
+     * @param Config                 $config
+     * @param null|DatabaseConnector $database_connector
      *
      * @return Test
      */
     public static function create(
         string $class_name,
         Config $config,
-        DatabaseConnector $database_connector
+        ?DatabaseConnector $database_connector
     ) : Test
     {
         return new $class_name(

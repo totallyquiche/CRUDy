@@ -14,13 +14,13 @@ final class TestRunner
     /**
      * Handle instantiation.
      *
-     * @param DatabaseConnector $database_connector
+     * @param null|DatabaseConnector $database_connector
      *
      * @return void
      */
     public function __construct(
         private Config $config,
-        private DatabaseConnector $database_connector
+        private ?DatabaseConnector $database_connector
     ) {}
 
     /**
