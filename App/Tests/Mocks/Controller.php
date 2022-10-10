@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Mocks;
 
 use App\Controller as RealController;
-use App\Views\Renderers\CliRenderer;
+use App\Views\Renderers\DirectRenderer;
 
 final class Controller extends RealController {
     /**
@@ -18,11 +18,11 @@ final class Controller extends RealController {
     /**
      * Handle instantiation.
      *
-     * @param CliRenderer $template_renderer
+     * @param DirectRenderer $template_renderer
      *
      * @return void
      */
-    public function __construct(CliRenderer $view_renderer)
+    public function __construct(DirectRenderer $view_renderer)
     {
         parent::__construct($view_renderer);
     }
@@ -34,8 +34,6 @@ final class Controller extends RealController {
      */
     public function index() : string
     {
-        $this->view_renderer->setContent(self::CONTENT);
-
-        return $this->view_renderer->renderView();
+        return $this->view_renderer->renderView(self::CONTENT);
     }
 }

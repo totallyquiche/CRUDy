@@ -7,15 +7,9 @@ namespace App\Views\Renderers;
 interface ViewRenderer
 {
     /**
-     * Render the specified view.
-     *
-     * @param string $view_name
-     * @param array  $args
+     * Render the view
      *
      * @return string
      */
-    public function renderView(
-        string $view_name = '',
-        array $args = []
-    ) : string;
+    public function renderView() : string;
 }

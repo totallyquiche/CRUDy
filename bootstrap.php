@@ -9,7 +9,7 @@ use App\Database\Connectors\Factories\DatabaseConnectorFactory;
 use App\Routers\HttpRouter;
 use App\Routers\CliRouter;
 use App\Views\Renderers\TemplateRenderer;
-use App\Views\Renderers\CliRenderer;
+use App\Views\Renderers\DirectRenderer;
 
 require_once(__DIR__ . '/autoload.php');
 
@@ -45,7 +45,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
 } else {
     require_once(__DIR__ . '/App/Cli/routes.php');
 
-    $cli_renderer = new CliRenderer;
+    $cli_renderer = new DirectRenderer;
 
     $router = new CliRouter(
         $routes,

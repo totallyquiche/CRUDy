@@ -8,7 +8,7 @@ use App\App;
 use App\Tests\Attributes\DataProvider;
 use App\Tests\Helpers\TestHelper;
 use App\Routers\HttpRouter;
-use App\Views\Renderers\CliRenderer;
+use App\Views\Renderers\DirectRenderer;
 use App\Tests\Factories\MockControllerFactory;
 use App\Tests\Mocks\Controller as MockController;
 use App\Http\Controllers\HttpController;
@@ -24,7 +24,7 @@ final class RouterTest extends Test
     public function routesProvider() : array
     {
         $random_string = TestHelper::getRandomString();
-        $mock_controller = MockControllerFactory::create(new CliRenderer);
+        $mock_controller = MockControllerFactory::create(new DirectRenderer);
 
         return [
             'Route to callable' => [
@@ -53,7 +53,7 @@ final class RouterTest extends Test
             $router = new HttpRouter(
                 $routes,
                 $request_uri,
-                new CliRenderer
+                new DirectRenderer
             );
 
             if ($router->route() !== $expected_results) {
@@ -71,11 +71,7 @@ final class RouterTest extends Test
      */
     public function test_missing_route() : bool
     {
-        $template_renderer = new TemplateRenderer(
-            App::getConfig()->get('SITE_TITLE'),
-            App::getConfig()->get('SITE_URL'),
-            intval(App::getConfig()->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
-        );
+        $template_renderer = new DirectRenderer;
 
         $router = new HttpRouter(
             [TestHelper::getRandomString(1) => ''],

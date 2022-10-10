@@ -31,10 +31,6 @@ final class TestsController extends CliController
             $tests = TestRunner::getAllTestClasses();
         }
 
-        $this->view_renderer->setContent(
-            $test_runner->run($tests)
-        );
-
-        return $this->view_renderer->renderView();
+        return $this->view_renderer->renderView($test_runner->run($tests));
     }
 }
