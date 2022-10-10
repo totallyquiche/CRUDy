@@ -45,7 +45,7 @@ class Router
      *
      * @return string;
      */
-    public function callRouteMethod(string $route) : string
+    public function route(string $route) : string
     {
         if (isset($this->routes[$route])) {
             $method = $this->routes[$route];

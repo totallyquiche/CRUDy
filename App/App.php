@@ -70,7 +70,7 @@ final class App
                 $router->register($key, $value);
             }
 
-            echo $router->callRouteMethod($request_uri);
+            echo $router->route($request_uri);
         }
     }
 }
