@@ -171,24 +171,4 @@ After running your tests, you will see the results printed to the screen.
 Each test cass will be displayed starting with `Passed` or `Failed`. The total
 pass/fail counts will be displayed at the end.
 
-```sh
-$ php run_tests.php
-
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: A single config line
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Multiple config lines
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: No lines
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Null values result in an empty string
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Mixed data types convert to strings
-Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Missing values result in empty strings
-Passed App\Tests\ModelTest::test_all_returns_expected_object_types()
-Passed App\Tests\ModelTest::test_all_returns_expected_number_of_objects()
-Passed App\Tests\ModelTest::test_find_returns_expected_object_type()
-Passed App\Tests\ModelTest::test_find_returns_object_with_expected_properties()
-Passed App\Tests\PdoConnectorTest::test_query()
-Passed App\Tests\PdoConnectorTest::test_execute()
-Passed App\Tests\RouterTest::test_route() | Case: Route to callable
-Passed App\Tests\RouterTest::test_route() | Case: Route to Controller
-Passed App\Tests\RouterTest::test_missing_route()
-
-Passed: 15, Failed: 0
-```
+![Test results example](test-results-example.png)
