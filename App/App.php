@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Routers\Router;
 use App\Database\Connectors\DatabaseConnector;
 
 final class App
@@ -12,15 +13,15 @@ final class App
      * Handle instantiation.
      *
      * @param Config                 $config
+     * @param Router                 $router
      * @param null|DatabaseConnector $database_connector
-     * @param null|Router            $router
      *
      * @return void
      */
     public function __construct(
         private Config $config,
-        private ?DatabaseConnector $database_connector,
-        private ?Router $router
+        private Router $router,
+        private ?DatabaseConnector $database_connector
     ) {}
 
     /**

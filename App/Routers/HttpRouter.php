@@ -2,28 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\Routers;
 
 use App\Controllers\Http\HttpController;
-use App\Views\Renderers\ViewRenderer;
 
-class Router
+class HttpRouter extends Router
 {
-    /**
-     * Handle initialization.
-     *
-     * @param array        $routes
-     * @param string       $request_rui
-     * @param ViewRenderer $view_renderer
-     *
-     * @return void
-     */
-    public function __construct(
-        private array $routes,
-        private string $route_name,
-        private ViewRenderer $view_renderer
-    ) {}
-
     /**
      * Get the rendered content for the provided route.
      *

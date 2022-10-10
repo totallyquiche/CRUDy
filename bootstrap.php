@@ -6,8 +6,10 @@ namespace App;
 
 use App\Factories\ConfigFactory;
 use App\Database\Connectors\Factories\DatabaseConnectorFactory;
-use App\Factories\RouterFactory;
+use App\Routers\HttpRouter;
+use App\Routers\CliRouter;
 use App\Views\Renderers\TemplateRenderer;
+use App\Views\Renderers\CliRenderer;
 
 require_once(__DIR__ . '/autoload.php');
 
@@ -27,7 +29,7 @@ if ($db_driver) {
 }
 
 if (isset($_SERVER['REQUEST_URI'])) {
-    require_once(__DIR__ . '/routes.php');
+    require_once(__DIR__ . '/App/Routes/http.php');
 
     $template_renderer = new TemplateRenderer(
         $config->get('SITE_TITLE'),
@@ -35,17 +37,27 @@ if (isset($_SERVER['REQUEST_URI'])) {
         intval($config->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
     );
 
-    $router = RouterFactory::create(
+    $router = new HttpRouter(
         $routes,
         $_SERVER['REQUEST_URI'],
         $template_renderer
+    );
+} else {
+    require_once(__DIR__ . '/App/Routes/cli.php');
+
+    $cli_renderer = new CliRenderer;
+
+    $router = new CliRouter(
+        $routes,
+        $argv[1] ?? '',
+        $cli_renderer
     );
 }
 
 $app = new App(
     $config,
-    $database_connector ?? null,
-    $router ?? null
+    $router,
+    $database_connector ?? null
 );
 
 echo $app->run();

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Mocks;
 
 use App\Controllers\Controller as RealController;
-use App\Views\Renderers\PlainTextRenderer;
+use App\Views\Renderers\CliRenderer;
 
 final class Controller extends RealController {
     /**
@@ -18,11 +18,11 @@ final class Controller extends RealController {
     /**
      * Handle instantiation.
      *
-     * @param PlainTextRenderer $template_renderer
+     * @param CliRenderer $template_renderer
      *
      * @return void
      */
-    public function __construct(PlainTextRenderer $view_renderer)
+    public function __construct(CliRenderer $view_renderer)
     {
         parent::__construct($view_renderer);
     }

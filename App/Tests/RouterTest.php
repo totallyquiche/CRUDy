@@ -6,8 +6,8 @@ namespace App\Tests;
 
 use App\Tests\Attributes\DataProvider;
 use App\Tests\Helpers\TestHelper;
-use App\Router;
-use App\Views\Renderers\PlainTextRenderer;
+use App\Routers\HttpRouter;
+use App\Views\Renderers\CliRenderer;
 use App\Tests\Factories\MockControllerFactory;
 use App\Tests\Mocks\Controller as MockController;
 use App\Controllers\Http\HttpController;
@@ -23,7 +23,7 @@ final class RouterTest extends Test
     public function routesProvider() : array
     {
         $random_string = TestHelper::getRandomString();
-        $mock_controller = MockControllerFactory::create(new PlainTextRenderer);
+        $mock_controller = MockControllerFactory::create(new CliRenderer);
 
         return [
             'Route to callable' => [
@@ -49,10 +49,10 @@ final class RouterTest extends Test
     public function test_route(array $routes, string $expected_results) : bool
     {
         foreach ($routes as $request_uri => $route_handler) {
-            $router = new Router(
+            $router = new HttpRouter(
                 $routes,
                 $request_uri,
-                new PlainTextRenderer
+                new CliRenderer
             );
 
             if ($router->route() !== $expected_results) {
@@ -76,7 +76,7 @@ final class RouterTest extends Test
             intval($this->config->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
         );
 
-        $router = new Router(
+        $router = new HttpRouter(
             [TestHelper::getRandomString(1) => ''],
             TestHelper::getRandomString(2),
             $template_renderer

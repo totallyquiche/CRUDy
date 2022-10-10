@@ -8,11 +8,12 @@ CRUDy is a proof-of-concept PHP framework with no dependencies.
 
 For fun, of course! In this case, "fun" and "education" are pretty closely tied. CRUDy is helping me hone my PHP skills and understand more about the concepts larger PHP frameworks are built on.
 
-CRUDy is _not_ meant to be used in production. CRUDy development starts with the naive approach instead of with existing standards (e.g. PSR). I then develop these implementations over time as I learn the pros and cons of different patterns. Compatibility, performance, and even security are not priorities and cannot be guaranteed.
+CRUDy is _not_ meant to be used in production. CRUDy development starts with the naive approach instead of with existing standards (e.g. PSR). I then develop these implementations over time as I learn the pros and cons of different patterns. Compatibility, performance, and even security are not priorities and are not guaranteed.
 
 Feedback is still welcome! You can even open up a Pull Request if you'd like. :smile:
 
 ## Features
+
 - Autoloading
 - Page caching
 - Environment variables (.env)
@@ -33,7 +34,7 @@ Technically, that's it! CRUDy is up and running! But you probably want to do mor
 
 ### Create a New Page
 
-Add a new route to the `$routes` array in `routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+Add a new route to the `$routes` array in `App/Routes/http.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
 
 ```php
 $routes = [
@@ -49,7 +50,7 @@ $routes = [
 
 ### Create a Controller
 
-Create a new class in `App/Controllers` that extends `App\Controller\Controller`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
+Create a new class in `App/Controllers/Http` that extends `App\Controllers\HttpController`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
 
 The controller should contain methods matching any register routes you have. For example, if I have registerd a route referencing `HomeController::index`, then I should have a controller named `HomeController` with a method named `index()` which returns a string.
 
@@ -62,7 +63,7 @@ The first parameter is the name of the view (without `.php`). The second paramet
 For example, calling the below method call will result in the the `show_object` view (`App/Views/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
 
 ```php
-$this->renderView(string $view_name, array $args = [
+$this->renderView('show_object', [
     'object_name' => 'Object Name';
 ]);
 ```
@@ -70,7 +71,7 @@ $this->renderView(string $view_name, array $args = [
 A values in `$args` can also be a `Callable`. For example, calling the method below will give the view access to a variable called `$message` with the value `Hello, World!`:
 
 ```php
-$this->renderView(string $view_name, array $args = [
+$this->renderView('view_name', [
     'message' => fn() => return 'Hello, World!',
 ]);
 ```
@@ -143,7 +144,7 @@ Create a new class in `App/Tests` that extends `App\Tests\Test`. The class name 
 Your test methods should be `public`, should start with `test_`, and should return a `boolean` indicating whether the test passed.
 
 ```php
-public function test_that_true_is_true()
+public function test_that_true_is_true() : bool
 {
     return true === true;
 }
@@ -153,16 +154,41 @@ public function test_that_true_is_true()
 
 As long as you follow the above naming conventions, your tests will be run automatically through the following command:
 
-```
+```sh
 php run_tests.php
 ```
 
 You can run an individual test by passing in the test name as an argument:
 
-```
+```sh
 php run_tests.php "App\Tests\RouterTest"
 ```
 
 ### Test results
 
-After running your tests, you will see the results printed to the screen. If every test in a class passes, you'll see the class name and the word "Passed". If a test fails, then you'll see the class name, the word "Failed", and the name of the test method that failed (returned `false`).
+After running your tests, you will see the results printed to the screen.
+
+Each test cass will be displayed starting with `Passed` or `Failed`. The total
+pass/fail counts will be displayed at the end.
+
+```sh
+$ php run_tests.php
+
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: A single config line
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Multiple config lines
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: No lines
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Null values result in an empty string
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Mixed data types convert to strings
+Passed App\Tests\ConfigTest::test_can_set_and_retrieve_config_options() | Case: Missing values result in empty strings
+Passed App\Tests\ModelTest::test_all_returns_expected_object_types()
+Passed App\Tests\ModelTest::test_all_returns_expected_number_of_objects()
+Passed App\Tests\ModelTest::test_find_returns_expected_object_type()
+Passed App\Tests\ModelTest::test_find_returns_object_with_expected_properties()
+Passed App\Tests\PdoConnectorTest::test_query()
+Passed App\Tests\PdoConnectorTest::test_execute()
+Passed App\Tests\RouterTest::test_route() | Case: Route to callable
+Passed App\Tests\RouterTest::test_route() | Case: Route to Controller
+Passed App\Tests\RouterTest::test_missing_route()
+
+Passed: 15, Failed: 0
+```
