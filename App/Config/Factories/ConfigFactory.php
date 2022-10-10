@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Factories;
+namespace App\Config\Factories;
 
-use App\Config;
+use App\Config\Config;
 
 final class ConfigFactory
 {

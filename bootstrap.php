@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Factories\ConfigFactory;
+use App\Config\Factories\ConfigFactory;
 use App\Database\Connectors\Factories\DatabaseConnectorFactory;
 use App\Routers\HttpRouter;
 use App\Routers\CliRouter;

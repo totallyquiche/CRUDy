@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use App\Tests\Attributes\DataProvider;
-use App\Config;
+use App\Config\Config;
 
 final class ConfigTest extends Test
 {

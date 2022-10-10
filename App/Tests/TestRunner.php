@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Config;
+use App\Config\Config;
 use App\Database\Connectors\DatabaseConnector;
 use App\Tests\Test;
 use App\Tests\Factories\TestFactory;
