@@ -12,17 +12,20 @@ final class RouterFactory
     /**
      * Create an instance of Router.
      *
+     * @param array  $routes
+     * @param string $route_name
+     *
      * @return Router
      */
     public static function create(
         array  $routes,
-        string $request_uri,
+        string $route_name,
         ViewRenderer $view_renderer
     ) : Router
     {
         return new Router(
             $routes,
-            $request_uri,
+            $route_name,
             $view_renderer
         );
     }

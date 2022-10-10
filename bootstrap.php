@@ -12,35 +12,40 @@ use App\Views\Renderers\TemplateRenderer;
 require_once(__DIR__ . '/autoload.php');
 
 $config = ConfigFactory::create(file($config_file_path));
+$db_driver = $config->get('DB_DRIVER');
 
-$database_connector = DatabaseConnectorFactory::create(
-    $config->get('DB_DRIVER'),
-    $config->get('MYSQL_DB_HOST'),
-    $config->get('MYSQL_DB_NAME'),
-    $config->get('MYSQL_DB_PORT'),
-    $config->get('MYSQL_DB_USERNAME'),
-    $config->get('MYSQL_DB_PASSWORD'),
-    $config->get('SQLITE_DB_NAME')
-);
+if ($db_driver) {
+    $database_connector = DatabaseConnectorFactory::create(
+        $db_driver,
+        $config->get('MYSQL_DB_HOST'),
+        $config->get('MYSQL_DB_NAME'),
+        $config->get('MYSQL_DB_PORT'),
+        $config->get('MYSQL_DB_USERNAME'),
+        $config->get('MYSQL_DB_PASSWORD'),
+        $config->get('SQLITE_DB_NAME')
+    );
+}
 
-require_once(__DIR__ . '/routes.php');
+if (isset($_SERVER['REQUEST_URI'])) {
+    require_once(__DIR__ . '/routes.php');
 
-$view_renderer = new TemplateRenderer(
-    $config->get('SITE_TITLE'),
-    $config->get('SITE_URL'),
-    intval($config->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
-);
+    $template_renderer = new TemplateRenderer(
+        $config->get('SITE_TITLE'),
+        $config->get('SITE_URL'),
+        intval($config->get('VIEW_CACHE_SECONDS_TO_EXPIRY'))
+    );
 
-$router = RouterFactory::create(
-    $routes,
-    $_SERVER['REQUEST_URI'] ?? '',
-    $view_renderer
-);
+    $router = RouterFactory::create(
+        $routes,
+        $_SERVER['REQUEST_URI'],
+        $template_renderer
+    );
+}
 
 $app = new App(
     $config,
-    $database_connector,
-    $router
+    $database_connector ?? null,
+    $router ?? null
 );
 
-$app->run();
+echo $app->run();

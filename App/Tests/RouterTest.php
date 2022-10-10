@@ -26,10 +26,6 @@ final class RouterTest extends Test
         $mock_controller = MockControllerFactory::create(new PlainTextRenderer);
 
         return [
-            'Headless mode' => [
-                'data' => [null => ''],
-                'expected_results' => ''
-            ],
             'Route to callable' => [
                 'data' => ['/' => fn() => $random_string],
                 'expected_results' => $random_string,

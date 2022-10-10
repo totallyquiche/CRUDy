@@ -11,16 +11,16 @@ final class App
     /**
      * Handle instantiation.
      *
-     * @param Config            $config
-     * @param DatabaseConnector $database_connector
-     * @param null|Router       $router
+     * @param Config                 $config
+     * @param null|DatabaseConnector $database_connector
+     * @param null|Router            $router
      *
      * @return void
      */
     public function __construct(
         private Config $config,
-        private DatabaseConnector $database_connector,
-        private Router $router
+        private ?DatabaseConnector $database_connector,
+        private ?Router $router
     ) {}
 
     /**
@@ -36,9 +36,9 @@ final class App
     /**
      * Return DatabaseConnector.
      *
-     * @return DatabaseConnector
+     * @return DatabaseConnector|null
      */
-    public function getDatabaseConnector() : DatabaseConnector
+    public function getDatabaseConnector() : DatabaseConnector|null
     {
         return $this->database_connector;
     }
@@ -46,10 +46,10 @@ final class App
     /**
      * Entrypoint to the application.
      *
-     * @return void
+     * @return string
      */
-    public function run() : void
+    public function run() : string
     {
-        echo $this->router->route();
+        return $this->router ? $this->router->route() : '';
     }
 }

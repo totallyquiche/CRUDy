@@ -20,7 +20,7 @@ class Router
      */
     public function __construct(
         private array $routes,
-        private string $request_uri,
+        private string $route_name,
         private ViewRenderer $view_renderer
     ) {}
 
@@ -31,12 +31,7 @@ class Router
      */
     public function route() : string
     {
-        // Headless
-        if ($this->request_uri === '') {
-            return '';
-        }
-
-        $router_handler = $this->routes[$this->request_uri] ?? null;
+        $router_handler = $this->routes[$this->route_name] ?? null;
 
         // Callable
         if (is_callable($router_handler)) {
