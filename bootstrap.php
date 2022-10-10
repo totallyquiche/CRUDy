@@ -45,12 +45,10 @@ if (isset($_SERVER['REQUEST_URI'])) {
 } else {
     require_once(__DIR__ . '/App/Cli/routes.php');
 
-    $cli_renderer = new DirectRenderer;
-
     $router = new CliRouter(
         $routes,
         $argv[1] ?? '',
-        $cli_renderer,
+        new DirectRenderer,
         $argv
     );
 }
