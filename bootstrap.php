@@ -6,8 +6,8 @@ namespace App;
 
 use App\Config\Factories\ConfigFactory;
 use App\Database\Connectors\Factories\DatabaseConnectorFactory;
-use App\Routers\HttpRouter;
-use App\Routers\CliRouter;
+use App\Http\HttpRouter;
+use App\Cli\CliRouter;
 use App\View\Renderers\TemplateRenderer;
 use App\View\Renderers\DirectRenderer;
 

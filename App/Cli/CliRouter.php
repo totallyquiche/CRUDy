@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Routers;
+namespace App\Cli;
+
+use App\Router;
 
 use App\View\Renderers\ViewRenderer;
 

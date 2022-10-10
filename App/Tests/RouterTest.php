@@ -7,7 +7,7 @@ namespace App\Tests;
 use App\App;
 use App\Tests\Attributes\DataProvider;
 use App\Tests\Helpers\TestHelper;
-use App\Routers\HttpRouter;
+use App\Http\HttpRouter;
 use App\View\Renderers\DirectRenderer;
 use App\Tests\Factories\MockControllerFactory;
 use App\Tests\Mocks\Controller as MockController;

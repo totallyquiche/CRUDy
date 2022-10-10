@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Routers;
+namespace App\Http;
+
+use App\Router;
 
 use App\Http\Controllers\HttpController;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Config\Config;
-use App\Routers\Router;
+use App\Router;
 use App\Database\Connectors\DatabaseConnector;
 
 final class App
