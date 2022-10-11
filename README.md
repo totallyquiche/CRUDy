@@ -87,7 +87,22 @@ $this->renderView('view_name', [
 
 ## Templates
 
-Templates may be used to support a type of single-inheritance View in which the string `{{ 💩 }}` in the Template is replaced with the contents of the View. For example, given the following Template:
+Templates may be used to support a type of single-inheritance View in which the string `{{ 💩 }}` in the Template is replaced with the contents of the View.
+
+### Using a Template
+
+To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
+
+```html
+{{ page }}
+<h1>Hello, World!</h1>
+```
+
+### Creating a Template
+
+Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and
+live in `App\View\Templates`. The should contain a single placeholder, `{{ 💩 }}`
+for embedding View within them. For example:
 
 ```html
 <!DOCTYPE html>
@@ -104,13 +119,14 @@ Templates may be used to support a type of single-inheritance View in which the 
 </html>
 ```
 
-and the following View:
+which, with the following View...
 
 ```html
+{{ page }}
 <h1>Hello, World!</h1>
 ```
 
-the following will be rendered:
+...results in the following being rendered:
 
 ```html
 <!DOCTYPE html>
@@ -125,19 +141,6 @@ the following will be rendered:
     <h1>Hello, World!</h1>
 </body>
 </html>
-```
-
-### Creating a Template
-
-Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and live in `App\View\Templates`. The should contain a single placeholder, `{{ 💩 }}` for embedding View within them.
-
-### Using a Template
-
-To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
-
-```html
-{{ page }}
-<h1>Hello, World!</h1>
 ```
 
 ## View Caching
