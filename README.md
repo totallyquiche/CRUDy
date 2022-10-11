@@ -39,11 +39,14 @@ Feedback is still welcome! You can even open up a Pull Request if you'd like.
 1. Start your PHP server: `php -S localhost:80`
 1. Open `http://localhost` in your browser
 
-Technically, that's it! CRUDy is up and running! But you probably want to do more than that...
+Technically, that's it! CRUDy is up and running! But you probably want to do
+more than that...
 
 ### Create a New Page
 
-Add a new route to the `$routes` array in `./App/Http/routes.php`. You can either specify a controller and method or an anonymous function. The method/function you define should return a string (this is what gets rendered).
+Add a new route to the `$routes` array in `./App/Http/routes.php`. You can
+either specify a controller and method or an anonymous function. The
+method/function you define should return a string (this is what gets rendered).
 
 ```php
 $routes = [
@@ -59,17 +62,29 @@ $routes = [
 
 ### Create a Controller
 
-Create a new class in `App/Controllers/Http` that extends `App\Http\Controllers\HttpController`. The class name should end with `Controller` (e.g. `HomeController`). The file name should be the class name plus `.php` (e.g. `HomeController.php`).
+Create a new class in `App/Controllers/Http` that extends
+`App\Http\Controllers\HttpController`. The class name should end with
+`Controller` (e.g. `HomeController`). The file name should be the class name
+plus `.php` (e.g. `HomeController.php`).
 
-The controller should contain methods matching any register routes you have. For example, if I have registerd a route referencing `HomeController::index`, then I should have a controller named `HomeController` with a method named `index()` which returns a string.
+The controller should contain methods matching any register routes you have. For
+example, if I have registerd a route referencing `HomeController::index`, then I
+should have a controller named `HomeController` with a method named `index()`
+which returns a string.
 
 ### Create a View
 
-Create a new `.php` file in `App/View/Templates`. Load the view from your controller by calling `$this->renderView($view_name, $args)` in the controller method.
+Create a new `.php` file in `App/View/Templates`. Load the view from your
+controller by calling `$this->renderView($view_name, $args)` in the controller
+method.
 
-The first parameter is the name of the view (without `.php`). The second parameter is an optional array of data to be passed to the view. The key/value pairs in the array are turned into variables with assigned values.
+The first parameter is the name of the view (without `.php`). The second
+parameter is an optional array of data to be passed to the view. The key/value
+pairs in the array are turned into variables with assigned values.
 
-For example, calling the below method call will result in the the `show_object` view (`App/View/Templates/show_object.php`) being loaded. The view will have access to a variable called `$object_name` with the value `Object Name`;
+For example, calling the below method call will result in the the `show_object`
+view (`App/View/Templates/show_object.php`) being loaded. The view will have
+access to a variable called `$object_name` with the value `Object Name`;
 
 ```php
 $this->renderView('show_object', [
@@ -77,7 +92,9 @@ $this->renderView('show_object', [
 ]);
 ```
 
-A values in `$args` can also be a `Callable`. For example, calling the method below will give the view access to a variable called `$message` with the value `Hello, World!`:
+A values in `$args` can also be a `Callable`. For example, calling the method
+below will give the view access to a variable called `$message` with the value
+`Hello, World!`:
 
 ```php
 $this->renderView('view_name', [
@@ -87,11 +104,15 @@ $this->renderView('view_name', [
 
 ## Templates
 
-Templates may be used to support a type of single-inheritance View in which the string `{{ 💩 }}` in the Template is replaced with the contents of the View.
+Templates may be used to support a type of single-inheritance View in which the
+string `{{ 💩 }}` in the Template is replaced with the contents of the View.
 
 ### Using a Template
 
-To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
+To use a Template, ensure that the first line of your View file contains a
+string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of
+the Template without `.php`. For example, the following View would utilize a
+template located at `App\View\Templates\page.php`:
 
 ```html
 {{ page }}
@@ -145,15 +166,21 @@ which, with the following View...
 
 ## View Caching
 
-After a View has been fully compiled, it is written to a cache located at `./App/View/Templates/Cache`. That cached file is used each time the corresponding page is requested until the cache period expires (the number of seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
+After a View has been fully compiled, it is written to a cache located at
+`./App/View/Templates/Cache`. That cached file is used each time the
+corresponding page is requested until the cache period expires (the number of
+seconds the `VIEW_CACHE_SECONDS_TO_EXPIRY` environment variable is set to).
 
 ## Testing
 
 ### Writing Tests
 
-Create a new class in `./App/Tests` that extends `App\Tests\Test`. The class name should end with `Test` (e.g. `HomeControllerTest`). The file name should be the class name plus `.php` (e.g. `HomeControllerTest.php`).
+Create a new class in `./App/Tests` that extends `App\Tests\Test`. The class
+name should end with `Test` (e.g. `HomeControllerTest`). The file name should be
+the class name plus `.php` (e.g. `HomeControllerTest.php`).
 
-Your test methods should be `public`, should start with `test_`, and should return a `boolean` indicating whether the test passed.
+Your test methods should be `public`, should start with `test_`, and should
+return a `boolean` indicating whether the test passed.
 
 ```php
 public function test_that_true_is_true() : bool
@@ -164,7 +191,8 @@ public function test_that_true_is_true() : bool
 
 ### Running Tests
 
-As long as you follow the above naming conventions, your tests will be run automatically through the following command:
+As long as you follow the above naming conventions, your tests will be run
+automatically through the following command:
 
 ```sh
 php index.php tests:run
