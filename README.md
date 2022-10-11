@@ -89,7 +89,7 @@ $this->renderView('view_name', [
 
 Templates may be used to support a type of single-inheritance View in which the string `{{ 💩 }}` in the Template is replaced with the contents of the View. For example, given the following Template:
 
-```php
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,13 +106,13 @@ Templates may be used to support a type of single-inheritance View in which the 
 
 and the following View:
 
-```php
+```html
 <h1>Hello, World!</h1>
 ```
 
 the following will be rendered:
 
-```php
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +135,7 @@ Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and l
 
 To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
 
-```php
+```html
 {{ page }}
 <h1>Hello, World!</h1>
 ```
