@@ -136,7 +136,7 @@ Templates are files with names matching `[a-zA-Z]+\.php` (e.g. `page.php`) and l
 To use a Template, ensure that the first line of your View file contains a string like `{{ TEMPLATE_NAME }}`, wherein `TEMPLATE_NAME` is the file name of the Template without `.php`. For example, the following View would utilize a template located at `App\View\Templates\page.php`:
 
 ```html
-{{ page }}
+\{\{ page \}\}
 <h1>Hello, World!</h1>
 ```
 
